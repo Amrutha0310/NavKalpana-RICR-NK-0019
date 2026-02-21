@@ -1,117 +1,169 @@
 import React, { useState } from "react";
+import { TbLockPassword } from "react-icons/tb";
+import { MdOutlineMailOutline } from "react-icons/md";
 import toast from "react-hot-toast";
+import api from "../config/Api";
 import { useNavigate } from "react-router-dom";
-
+import { useAuth } from "../context/AuthContext";
+//import Loading from "../components/Loading";
 const Login = () => {
-  const navigate = useNavigate();
+  const { setUser, setIsLogin, setRole } = useAuth();
+  // const [isForgetPassModalOpen, setIsForgetPassModalOpen] = useState(false);
 
-  const [formData, setFormData] = useState({
+  const navigate = useNavigate();
+  const [loginData, setLoginData] = useState({
     email: "",
     password: "",
   });
-
   const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setLoginData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleClearForm = () => {
-    setFormData({ email: "", password: "" });
+    setLoginData({ email: "", password: "" });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
-    try {
-      const res = await api.post("/auth/login", formData);
+    console.log(loginData);
 
+    try {
+      const res = await api.post("/auth/login", loginData);
       toast.success(res.data.message);
 
-      // optional: store user or token
-      sessionStorage.setItem("AppUser", JSON.stringify(res.data.data));
+      setUser(res.data.data);
+      setIsLogin(true);
+      sessionStorage.setItem("LearningUser", JSON.stringify(res.data.data));
 
       handleClearForm();
+      switch (res.data.data.role) {
+        case "teacher": {
+          setRole("teacher");
+          navigate("/teacher-dashboard");
+          break;
+        }
 
-      // simple redirect
-      navigate("/dashboard");
+        case "student": {
+          setRole("student");
+          navigate("/student-dashboard");
+          break;
+        }
+        case "admin": {
+          setRole("admin");
+          navigate("/admin-dashboard");
+          break;
+        }
+
+        default:
+          break;
+      }
     } catch (error) {
-      console.log(error);
-      toast.error(error?.response?.data?.message || "Login failed");
+      toast.error(error?.response?.data?.message);
     } finally {
       setIsLoading(false);
     }
   };
 
+  if (isLoading) {
+    return (
+      <div className="w-100 h-100 flex items-center justify-center">
+        Loading..
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-base-200 px-4">
-      <div className="w-full max-w-md">
-        <div className="card bg-base-100 shadow-xl">
+    <>
+      <section className="min-h-screen flex items-center justify-center bg-base-200">
+        <div className="card w-full max-w-md shadow-2xl bg-base-100 border border-primary">
           <div className="card-body">
-            {/* Header */}
-            <h2 className="card-title text-3xl justify-center text-primary">
-              Login
-            </h2>
-            <p className="text-center text-base-content/70 mb-6">
-              Welcome back 👋
-            </p>
+           
+            <div className="text-center mb-6">
+              <h2 className="text-3xl font-bold text-primary">
+                Student Portal Login 🎓
+              </h2>
+              <p className="text-sm text-base-content/70 mt-1">
+                Access your learning dashboard
+              </p>
+            </div>
 
-            {/* Form */}
-            <form
-              onSubmit={handleSubmit}
-              onReset={handleClearForm}
-              className="space-y-4"
-            >
-              <input
-                type="email"
-                name="email"
-                placeholder="Email address"
-                value={formData.email}
-                onChange={handleChange}
-                disabled={isLoading}
-                required
-                className="input input-bordered w-full"
-              />
+            <form onSubmit={handleSubmit} onReset={handleClearForm}>
+             
+              <div className="form-control mb-4">
+                <label className="label">
+                  <span className="label-text font-semibold">Email</span>
+                </label>
+                <div className="relative">
+                  <MdOutlineMailOutline className="absolute left-3 top-3 text-lg text-primary" />
+                  <input
+                    type="email"
+                    name="email"
+                    value={loginData.email}
+                    onChange={handleChange}
+                    placeholder="Enter your email"
+                    disabled={isLoading}
+                    className="input input-bordered w-full pl-10 focus:input-primary"
+                  />
+                </div>
+              </div>
 
-              <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={formData.password}
-                onChange={handleChange}
-                disabled={isLoading}
-                required
-                className="input input-bordered w-full"
-              />
+             
+              <div className="form-control mb-6">
+                <label className="label">
+                  <span className="label-text font-semibold">Password</span>
+                </label>
+                <div className="relative">
+                  <TbLockPassword className="absolute left-3 top-3 text-lg text-primary" />
+                  <input
+                    type="password"
+                    name="password"
+                    value={loginData.password}
+                    onChange={handleChange}
+                    placeholder="Enter your password"
+                    disabled={isLoading}
+                    className="input input-bordered w-full pl-10 focus:input-primary"
+                  />
+                </div>
+              </div>
 
-              <div className="flex gap-3 pt-4">
-                <button
-                  type="reset"
-                  disabled={isLoading}
-                  className="btn btn-secondary btn-outline flex-1"
-                >
-                  Clear
-                </button>
-
+             
+              <div className="mt-4 flex gap-3">
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="btn btn-primary flex-1"
+                  className="btn btn-primary w-full"
                 >
-                  {isLoading ? "Logging in..." : "Login"}
+                  {isLoading ? "Loading..." : "Login"}
+                </button>
+              </div>
+
+            
+              <div className="text-center mt-4 text-sm">
+                <button type="button" className="link link-primary">
+                  Forgot Password?
+                </button>
+              </div>
+
+              <div className="text-center mt-2 text-sm">
+                <span>New Student?</span>
+                <button
+                  type="button"
+                  onClick={() => navigate("/register")}
+                  className="link link-secondary ml-1"
+                >
+                  Register Here
                 </button>
               </div>
             </form>
           </div>
         </div>
-
-        <p className="text-center text-sm text-base-content/60 mt-6">
-          Your data is safe with us 🔐
-        </p>
-      </div>
-    </div>
+      </section>
+    </>
   );
 };
 
