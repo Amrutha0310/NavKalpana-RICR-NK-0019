@@ -6,6 +6,13 @@ const NavBar = () => {
   const [theme, setTheme] = useState("light");
   const navigate = useNavigate();
 
+   const handleThemeChange = (event) => {
+    const selectedTheme = event.target.value;
+    setTheme(selectedTheme);
+    localStorage.setItem("chit-chatTheme", selectedTheme);
+    document.documentElement.setAttribute("data-theme", selectedTheme);
+  };
+
   useEffect(() => {
     const savedTheme = localStorage.getItem("chit-chatTheme") || "light";
     document.documentElement.setAttribute("data-theme", savedTheme);
@@ -39,15 +46,10 @@ const NavBar = () => {
             Login
           </button>
 
-          <button
-            className="btn btn-outline btn-sm px-5"
-            onClick={() => navigate("/register")}
-          >
-            Register
-          </button>
+         
 
           <select
-            className="select select-bordered select-sm min-w-[130px]"
+            className="select select-bordered select-sm min-w-32.5"
             onChange={handleThemeChange}
             value={theme}
           >
