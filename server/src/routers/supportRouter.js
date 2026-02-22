@@ -15,4 +15,4 @@ router.get("/doubts", protect, getDoubts);
 router.get("/attendance", protect, getAttendance);
 router.put("/resolve/:id", protect, resolveDoubt);
 
-module.exports = router;
+export default router;

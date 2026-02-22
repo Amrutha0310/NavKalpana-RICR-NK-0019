@@ -1,6 +1,8 @@
 import User from "../models/UserModel.js";
 import bcrypt from "bcrypt";
 import { genToken } from "../utils/authToken.js";
+
+
 export const UserLogin = async (req, res, next) => {
   try {
     // fetching from frontend
@@ -82,3 +84,12 @@ export const UserRegister = async(req,res,next)=>{
     next(error);
   }
 }
+
+export const UserLogout = async (req, res, next) => {
+  try {
+    res.clearCookie("parleG");
+    res.status(200).json({ message: "Logout Successfull" });
+  } catch (error) {
+    next(error);
+  }
+};
