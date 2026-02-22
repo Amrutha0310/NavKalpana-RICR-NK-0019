@@ -1,3 +1,5 @@
+import dotenv from "dotenv"
+dotenv.config()
 import express from "express";
 import connectDB from "./src/config/db.js";
 import morgan from "morgan"; //gives error,or any log data in terminal
@@ -6,6 +8,7 @@ import cors from "cors";
 // import StudentRouter from "./src/routers/studentRouter.js";
 // import TeacherRouter from "./src/routers/teacherRouter.js";
 import AuthRouter from "./src/routers/authRouter.js";
+
 
 
 const app = express();
@@ -41,7 +44,7 @@ app.use((err, req, res, next) => {
 const port =process.env.PORT || 5000;
 app.listen(port, async()=>{
     console.log("server port:",port);
-    connectDB();
+    // connectDB();
     try {
         //cloudinary 
     } catch (error) {
