@@ -79,11 +79,11 @@ const Login = () => {
 
   return (
     <>
-      <section className="min-h-screen flex items-center justify-center bg-base-200">
+      <section className="min-h-screen flex items-center justify-center bg-base-200 bg-gradient-to-br from-indigo-100 via-blue-100 to-purple-100 px-3">
         <div className="card w-full max-w-md shadow-2xl bg-base-100 border border-primary">
           <div className="card-body">
            
-            <div className="text-center mb-6">
+            <div className="text-center mb-3">
               <h2 className="text-3xl font-bold text-primary">
                 Student Portal Login 🎓
               </h2>
