@@ -1,6 +1,6 @@
 import User from "../models/UserModel.js";
 import bcrypt from "bcrypt";
-
+import { genToken } from "../utils/authToken.js";
 export const UserLogin = async (req, res, next) => {
   try {
     // fetching from frontend
@@ -29,7 +29,7 @@ export const UserLogin = async (req, res, next) => {
     }
 
     // Token Generation
-   // await genToken(existingUser, res);
+    await genToken(existingUser, res);
 
     //sending message to frontend
     res.status(200).json({ message: "Login Successfull", data: existingUser });
@@ -39,3 +39,46 @@ export const UserLogin = async (req, res, next) => {
     next(error);
   }
 };
+export const UserRegister = async(req,res,next)=>{
+  try {
+    const { fullName, email, mobileNumber, password, role } = req.body;
+
+    if (!fullName || !email || !mobileNumber || !password || !role) {
+      const error = new Error("All Fields Required");
+      error.StatusCode = 400;
+      return next(error);
+    }
+    // checking user is already exists or not
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      const error = new Error("Email is already registered");
+      error.StatusCode = 409;
+      return next(error);
+    }
+
+    // encrypting password
+    const salt = await bcrypt.genSalt(10);
+    const hashPassword = await bcrypt.hash(password, salt);
+    console.log("hashpassword", hashPassword);
+
+    const photoURL = `https://placehold.co/600x400?text=${fullName.charAt(0).toUpperCase()}`;
+    const photo = {
+      url: photoURL,
+    };
+    //saving data in backend
+    const newUser = await User.create({
+      fullName,
+      email: email.toLowerCase(),
+      mobileNumber,
+      password: hashPassword,
+      role,
+      photo,
+    });
+
+    // sending respose to FrontEnd
+    console.log(newUser);
+    res.status(201).json({ message: "Registration Successfull" });
+  } catch (error) {
+    next(error);
+  }
+}
