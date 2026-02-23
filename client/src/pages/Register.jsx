@@ -30,7 +30,7 @@ const Register = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  /* VALIDATION  */
+  //validation
   const validate = () => {
     let err = {};
 
@@ -54,7 +54,7 @@ const Register = () => {
     return Object.keys(err).length === 0;
   };
 
-  /* ---------------- SUBMIT ---------------- */
+  //Submit
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -77,10 +77,10 @@ const Register = () => {
   };
 
   return (
-  <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-100 via-blue-100 to-purple-100 px-3">
+  <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-indigo-100 via-blue-100 to-purple-100 px-3">
     <div className="card w-full max-w-sm bg-base-100 shadow-xl rounded-xl">
       <div className="card-body px-5 py-4">
-        {/* HEADER */}
+        
         <div className="text-center mb-3">
           <div className="mx-auto w-12 h-12 flex items-center justify-center rounded-full bg-primary text-white shadow mb-2">
             {formData.role === "student" ? (
@@ -99,7 +99,7 @@ const Register = () => {
           </p>
         </div>
 
-        {/* ROLE SWITCH */}
+        
         <div className="tabs tabs-boxed justify-center mb-3 text-sm">
           <button
             type="button"
