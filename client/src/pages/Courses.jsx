@@ -1,12 +1,11 @@
-courses
+
 import React, { useEffect, useState } from 'react';
-import api from '../api'; // adjust path if needed
+import api from '../config/Api'; 
 import { Link } from 'react-router-dom';
 import {
     FiPlay,
     FiCheckCircle,
-    FiUser,
-    FiBarChart3,
+   
     FiLoader,
     FiPlus,
     FiEdit2,
