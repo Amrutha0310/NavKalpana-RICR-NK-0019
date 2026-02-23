@@ -38,19 +38,19 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
         {/* LEFT */}
 
-        <div
+         <div
           className="flex items-center gap-2 cursor-pointer"
-          onClick={() => navigate("/home")}
+          //onClick={() => navigate("/home")}
         >
           <FaGraduationCap className="text-blue-500 text-2xl" />
           <div className="leading-tight">
             <h1 className="text-lg font-bold text-white">Learnify</h1>
             <p className="text-[10px] text-gray-400">Student LMS</p>
           </div>
-        </div>
+         </div> 
 
-        {/* CENTER */}
-        <ul className="hidden md:flex gap-3">
+        
+        {/* <ul className="hidden md:flex gap-3">
           <NavLink to="/home" className={linkClass}>
             <FaHome /> Home
           </NavLink>
@@ -63,7 +63,7 @@ const Navbar = () => {
           <NavLink to="/contact" className={linkClass}>
             <FaEnvelope /> Contact Us
           </NavLink>
-        </ul>
+        </ul> */}
 
         {/* RIGHT */}
         <div className="flex items-center gap-4">

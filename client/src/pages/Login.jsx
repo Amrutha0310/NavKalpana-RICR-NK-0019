@@ -79,7 +79,7 @@ const Login = () => {
 
   return (
     <>
-      <section className="min-h-screen flex items-center justify-center bg-base-200 bg-gradient-to-br from-indigo-100 via-blue-100 to-purple-100 px-3">
+      <section className="min-h-screen flex items-center justify-center bg-base-200 `bg-linear-to-br` from-indigo-100 via-blue-100 to-purple-100 px-3">
         <div className="card w-full max-w-md shadow-2xl bg-base-100 border border-primary">
           <div className="card-body">
            
