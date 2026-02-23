@@ -4,7 +4,7 @@ import {
   getStudentDashboard,
   getTeacherDashboard,
   getLeaderboard,
-} from "../controllers/userController";
+} from "../controllers/userController.js";
 // import { UserLogin, UserRegister } from "../controllers/authController.js";
 import protect from "../middlewares/authMiddleware.js";
 
