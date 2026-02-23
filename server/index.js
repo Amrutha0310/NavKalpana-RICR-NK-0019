@@ -1,6 +1,9 @@
 
-import dotenv from "dotenv"
-dotenv.config()
+import dotenv from "dotenv";
+dotenv.config();
+
+
+
 import express from "express";
 import connectDB from "./src/config/db.js";
 import cookieParser from "cookie-parser";
@@ -51,8 +54,10 @@ app.use((err, req, res, next) => {
 
 // mongoDB connection
 const port =process.env.PORT || 5000;
+ connectDB();
 app.listen(port, async()=>{
     console.log("server port:",port);
+   
     // connectDB();
     try {
         //cloudinary 
