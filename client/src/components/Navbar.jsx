@@ -63,16 +63,9 @@ const Navbar = () => {
     <nav className="bg-base-100 shadow-md sticky top-0 z-50 border-b border-base-200">
       <div className="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
         {/* LEFT */}
-<<<<<<< HEAD
-
-         <div
-          className="flex items-center gap-2 cursor-pointer"
-          //onClick={() => navigate("/home")}
-=======
         <div
           className="flex items-center gap-2 cursor-pointer"
           onClick={() => navigate("/")}
->>>>>>> 6599d6c23de3679a93331a350f97371d4da91c47
         >
           <FaGraduationCap className="text-primary text-3xl" />
           <div className="leading-tight">
@@ -81,13 +74,8 @@ const Navbar = () => {
           </div>
          </div> 
 
-<<<<<<< HEAD
-        
-        {/* <ul className="hidden md:flex gap-3">
-=======
         {/* MIDDLE - Desktop Links */}
         <ul className="hidden md:flex items-center gap-1">
->>>>>>> 6599d6c23de3679a93331a350f97371d4da91c47
           <NavLink to="/home" className={linkClass}>
             <FaHome /> Home
           </NavLink>
@@ -97,9 +85,6 @@ const Navbar = () => {
           <NavLink to="/quizzes" className={linkClass}>
             Quizzes
           </NavLink>
-<<<<<<< HEAD
-        </ul> */}
-=======
           <NavLink to="/assignments" className={linkClass}>
             Assignments
           </NavLink>
@@ -112,7 +97,6 @@ const Navbar = () => {
             </NavLink>
           )}
         </ul>
->>>>>>> 6599d6c23de3679a93331a350f97371d4da91c47
 
         {/* RIGHT */}
         <div className="flex items-center gap-4">

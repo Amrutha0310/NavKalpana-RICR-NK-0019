@@ -3,17 +3,10 @@ import Navbar from "./components/Navbar";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-<<<<<<< HEAD
-// import Home from "./pages/Home";
-// import About from "./pages/About";
-// import Contact from "./pages/Contact";
-import Courses from "./pages/Courses";   
-=======
 import Home from "./pages/Home";
 // import About from "./pages/About";
 // import Contact from "./pages/Contact";
 import Courses from "./pages/Courses";
->>>>>>> 6599d6c23de3679a93331a350f97371d4da91c47
 import Support from "./pages/Support";
 import Quiz from "./pages/Quiz";
 import Quizzes from "./pages/Quizzes";
@@ -38,21 +31,6 @@ const App = () => {
         <Route path="/register" element={<Register />} />
         {/* <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} /> */}
-<<<<<<< HEAD
-        <Route path="/courses" element={<Courses />} /> 
-        <Route path="/support" element={<Support />} /> 
-        <Route path="/quiz" element={<Quiz/>} /> 
-        <Route path="/quizzes" element={<Quizzes/>} /> 
-        <Route path="/assignments" element={<Assignments/>} /> 
-        <Route path="/CourseDetail" element={<CourseDetail/>} /> 
-        <Route path="/Attendance" element={<Attendance/>} /> 
-        <Route path="/studentsdashboard" element={<StudentsDashboard />} />
-        <Route path="/teacherdashboard" element={<TeacherDashboard />} />
-        
-
-      </Routes>
-{/* 
-=======
         <Route path="/courses" element={<Courses />} />
         <Route path="/support" element={<Support />} />
         <Route path="/quiz" element={<Quiz />} />
@@ -66,7 +44,6 @@ const App = () => {
 
       </Routes>
       {/* 
->>>>>>> 6599d6c23de3679a93331a350f97371d4da91c47
       <Footer /> */}
     </BrowserRouter>
   );

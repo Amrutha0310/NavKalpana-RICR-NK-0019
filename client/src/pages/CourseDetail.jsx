@@ -16,12 +16,8 @@ import {
 } from 'react-icons/fi';
 
 const CourseDetail = () => {
-<<<<<<< HEAD
-    const { id } = useParams();
-=======
     const query = new URLSearchParams(window.location.search);
     const id = query.get("id");
->>>>>>> 6599d6c23de3679a93331a350f97371d4da91c47
     const [course, setCourse] = useState(null);
     const [userCourseData, setUserCourseData] = useState(null);
     const [activeLesson, setActiveLesson] = useState(null);
@@ -32,11 +28,7 @@ const CourseDetail = () => {
         try {
             const [courseRes, userRes] = await Promise.all([
                 api.get(`/courses/${id}`),
-<<<<<<< HEAD
-                api.get('/users/dashboard')
-=======
                 api.get('/user/dashboard')
->>>>>>> 6599d6c23de3679a93331a350f97371d4da91c47
             ]);
 
             const courseData = courseRes.data;
@@ -103,13 +95,8 @@ const CourseDetail = () => {
         );
 
     return (
-<<<<<<< HEAD
-        <div className="max-w-7xl mx-auto space-y-8 pb-20 animate-in fade-in duration-700">
-          
-=======
         <div className="p-6 max-w-7xl mx-auto space-y-8 pb-20 animate-in fade-in duration-700">
 
->>>>>>> 6599d6c23de3679a93331a350f97371d4da91c47
             <div className="relative h-72 rounded-3xl overflow-hidden glass border border-slate-800 p-10 flex items-end">
                 <div className="absolute inset-0 z-0">
                     <img
@@ -162,11 +149,6 @@ const CourseDetail = () => {
                 </div>
             </div>
 
-<<<<<<< HEAD
-            
-=======
-
->>>>>>> 6599d6c23de3679a93331a350f97371d4da91c47
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <div className="lg:col-span-2 space-y-8">
                     <div className="glass aspect-video rounded-3xl border border-slate-800 overflow-hidden relative shadow-2xl">
