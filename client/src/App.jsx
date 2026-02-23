@@ -8,6 +8,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Courses from "./pages/Courses";   
 import Footer from "./components/Footer";
+import StudentsDashboard from "./pages/dashboard/StudentsDashboard";
 import { Toaster } from "react-hot-toast";
 
 const App = () => {
@@ -24,6 +25,8 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/courses" element={<Courses />} />
+        <Route path="/studentsdashboard" element={<StudentsDashboard />} />
+
       </Routes>
 
       <Footer />
