@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6599d6c23de3679a93331a350f97371d4da91c47
 import React, { useEffect, useState } from 'react';
 import api from '../config/Api';
 import {
@@ -24,7 +28,12 @@ const Support = () => {
         type: 'Doubt'
     });
 
+<<<<<<< HEAD
     const role = localStorage.getItem('role') || 'student';
+=======
+    const user = JSON.parse(sessionStorage.getItem("LearningUser"));
+    const role = user?.role || 'student';
+>>>>>>> 6599d6c23de3679a93331a350f97371d4da91c47
 
     const fetchData = async () => {
         try {
@@ -90,7 +99,11 @@ const Support = () => {
         );
 
     return (
+<<<<<<< HEAD
         <div className="space-y-8 animate-in slide-in-from-right-4 duration-700">
+=======
+        <div className="p-6 space-y-8 animate-in slide-in-from-right-4 duration-700">
+>>>>>>> 6599d6c23de3679a93331a350f97371d4da91c47
             <div className="flex items-center justify-between">
                 <div>
                     <h2 className="text-3xl font-bold text-white">
@@ -141,18 +154,29 @@ const Support = () => {
                                         <p className="text-xs text-slate-500 uppercase">
                                             {doubt.course.name} • {doubt.type}
                                             {role === 'teacher' &&
+<<<<<<< HEAD
                                                 ` • Student: ${doubt.student.name}`}
+=======
+                                                ` • Student: ${doubt.student.fullName}`}
+>>>>>>> 6599d6c23de3679a93331a350f97371d4da91c47
                                         </p>
                                     </div>
                                 </div>
 
                                 <div className="flex items-center gap-3">
                                     <span
+<<<<<<< HEAD
                                         className={`text-[10px] font-bold px-3 py-1 rounded-full border uppercase ${
                                             doubt.status === 'Resolved'
                                                 ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20'
                                                 : 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20'
                                         }`}
+=======
+                                        className={`text-[10px] font-bold px-3 py-1 rounded-full border uppercase ${doubt.status === 'Resolved'
+                                            ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20'
+                                            : 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20'
+                                            }`}
+>>>>>>> 6599d6c23de3679a93331a350f97371d4da91c47
                                     >
                                         {doubt.status}
                                     </span>

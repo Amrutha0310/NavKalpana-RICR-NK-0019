@@ -11,11 +11,11 @@ export const UserLogin = async (req, res, next) => {
     //verifying
     if (!email || !password) {
       const error = new Error("All Fields Required");
-      error.StatusCode = 400;
+      error.statusCode = 400;
       return next(error);
     }
     // checking user is registered or not
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({ email: email.toLowerCase() });
     if (!existingUser) {
       const error = new Error("Email not registered");
       error.statusCode = 401;
@@ -26,7 +26,7 @@ export const UserLogin = async (req, res, next) => {
     const isVerified = await bcrypt.compare(password, existingUser.password);
     if (!isVerified) {
       const error = new Error("Password didn't match");
-      error.StatusCode = 402;
+      error.statusCode = 402;
       return next(error);
     }
 
@@ -61,7 +61,7 @@ export const UserRegister = async (req, res, next) => {
     }
 
     // 3️⃣ Validate mobile number (Indian 10 digits)
-    const mobileRegex = /^\d{10}$/; 
+    const mobileRegex = /^\d{10}$/;
     if (!mobileRegex.test(mobileNumber)) {
       const error = new Error("Mobile number must be 10 digits");
       error.statusCode = 400;
@@ -113,7 +113,7 @@ export const UserRegister = async (req, res, next) => {
 
 export const UserLogout = async (req, res, next) => {
   try {
-    res.clearCookie("parleG");
+    res.clearCookie("token");
     res.status(200).json({ message: "Logout Successfull" });
   } catch (error) {
     next(error);

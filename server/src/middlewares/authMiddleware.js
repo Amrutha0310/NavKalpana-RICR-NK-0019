@@ -2,10 +2,10 @@ import jwt from "jsonwebtoken";
 import User from "../models/UserModel.js";
 
 
- const Protect = async (req, res, next) => {
+const Protect = async (req, res, next) => {
   try {
-    const token = req.cookies.parleG;
-    console.log("token recived in cookies:", token); 
+    const token = req.cookies.token;
+    console.log("token recived in cookies:", token);
 
     const decode = jwt.verify(token, process.env.JWT_SECRET);
     console.log(decode);

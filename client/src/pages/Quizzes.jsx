@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6599d6c23de3679a93331a350f97371d4da91c47
 import React, { useEffect, useState } from 'react';
 import api from '../config/Api';
 import { Link } from 'react-router-dom';
@@ -30,7 +34,12 @@ const Quizzes = () => {
         ]
     });
 
+<<<<<<< HEAD
     const role = localStorage.getItem('role') || 'student';
+=======
+    const user = JSON.parse(sessionStorage.getItem("LearningUser"));
+    const role = user?.role || 'student';
+>>>>>>> 6599d6c23de3679a93331a350f97371d4da91c47
 
     const fetchData = async () => {
         try {
@@ -93,7 +102,11 @@ const Quizzes = () => {
         );
 
     return (
+<<<<<<< HEAD
         <div className="space-y-8 animate-in fade-in duration-700">
+=======
+        <div className="p-6 space-y-8 animate-in slide-in-from-bottom-4 duration-700">
+>>>>>>> 6599d6c23de3679a93331a350f97371d4da91c47
             <div className="flex items-center justify-between">
                 <div>
                     <h2 className="text-3xl font-bold text-white">

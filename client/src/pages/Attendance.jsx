@@ -15,10 +15,14 @@ const Attendance = () => {
     useEffect(() => {
         const fetchAttendance = async () => {
             try {
+<<<<<<< HEAD
                 const token = localStorage.getItem('token');
                 const res = await api.get('/support/attendance', {
                     headers: { Authorization: `Bearer ${token}` }
                 });
+=======
+                const res = await api.get('/support/attendance');
+>>>>>>> 6599d6c23de3679a93331a350f97371d4da91c47
                 setAttendance(res.data);
             } catch (err) {
                 console.error(err);
@@ -38,14 +42,22 @@ const Attendance = () => {
     if (loading) return <div>Loading attendance...</div>;
 
     return (
+<<<<<<< HEAD
         <div className="space-y-8 animate-in slide-in-from-top-4 duration-700">
+=======
+        <div className="p-6 space-y-8 animate-in slide-in-from-top-4 duration-700">
+>>>>>>> 6599d6c23de3679a93331a350f97371d4da91c47
             <div>
                 <h2 className="text-3xl font-bold text-white">Attendance Tracking</h2>
                 <p className="text-slate-400 mt-1">Keep track of your classes and participation.</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+<<<<<<< HEAD
                 
+=======
+
+>>>>>>> 6599d6c23de3679a93331a350f97371d4da91c47
                 <div className="glass p-8 rounded-3xl border border-slate-800 flex items-center gap-6">
                     <div className="w-16 h-16 bg-primary-500/10 text-primary-500 rounded-2xl flex items-center justify-center">
                         <FiTrendingUp size={32} />
@@ -60,7 +72,11 @@ const Attendance = () => {
                     </div>
                 </div>
 
+<<<<<<< HEAD
                 
+=======
+
+>>>>>>> 6599d6c23de3679a93331a350f97371d4da91c47
                 <div className="glass p-8 rounded-3xl border border-slate-800 flex items-center gap-6">
                     <div className="w-16 h-16 bg-emerald-500/10 text-emerald-500 rounded-2xl flex items-center justify-center">
                         <FiCheckCircle size={32} />
@@ -75,7 +91,11 @@ const Attendance = () => {
                     </div>
                 </div>
 
+<<<<<<< HEAD
                 
+=======
+
+>>>>>>> 6599d6c23de3679a93331a350f97371d4da91c47
                 <div className="glass p-8 rounded-3xl border border-slate-800 flex items-center gap-6">
                     <div className="w-16 h-16 bg-red-500/10 text-red-500 rounded-2xl flex items-center justify-center">
                         <FiXCircle size={32} />
@@ -91,7 +111,11 @@ const Attendance = () => {
                 </div>
             </div>
 
+<<<<<<< HEAD
             
+=======
+
+>>>>>>> 6599d6c23de3679a93331a350f97371d4da91c47
             <div className="glass rounded-3xl border border-slate-800 overflow-hidden">
                 <div className="p-6 border-b border-slate-800 bg-slate-900/30 flex items-center justify-between">
                     <h3 className="text-xl font-bold text-white">
@@ -133,6 +157,7 @@ const Attendance = () => {
 
                                     <td className="px-8 py-4">
                                         <span
+<<<<<<< HEAD
                                             className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold ${
                                                 record.status === 'Present'
                                                     ? 'bg-emerald-500/10 text-emerald-500 border border-emerald-500/20'
@@ -145,6 +170,18 @@ const Attendance = () => {
                                                         ? 'bg-emerald-500'
                                                         : 'bg-red-500'
                                                 }`}
+=======
+                                            className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold ${record.status === 'Present'
+                                                ? 'bg-emerald-500/10 text-emerald-500 border border-emerald-500/20'
+                                                : 'bg-red-500/10 text-red-500 border border-red-500/20'
+                                                }`}
+                                        >
+                                            <div
+                                                className={`w-1.5 h-1.5 rounded-full ${record.status === 'Present'
+                                                    ? 'bg-emerald-500'
+                                                    : 'bg-red-500'
+                                                    }`}
+>>>>>>> 6599d6c23de3679a93331a350f97371d4da91c47
                                             ></div>
                                             {record.status}
                                         </span>

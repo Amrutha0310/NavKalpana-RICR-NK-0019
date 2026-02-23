@@ -26,10 +26,14 @@ const TeacherDashboard = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
+<<<<<<< HEAD
         const token = localStorage.getItem('token');
         const { data } = await api.get('/users/teacher-dashboard', {
           headers: { Authorization: `Bearer ${token}` }
         });
+=======
+        const { data } = await api.get('/user/teacher-dashboard');
+>>>>>>> 6599d6c23de3679a93331a350f97371d4da91c47
 
         setStats({
           totalStudents: data.totalStudents,
@@ -49,7 +53,11 @@ const TeacherDashboard = () => {
     fetchStats();
   }, []);
 
+<<<<<<< HEAD
   const user = JSON.parse(localStorage.getItem('user'));
+=======
+  const user = JSON.parse(sessionStorage.getItem('LearningUser'));
+>>>>>>> 6599d6c23de3679a93331a350f97371d4da91c47
 
   if (loading) {
     return (
@@ -60,6 +68,7 @@ const TeacherDashboard = () => {
   }
 
   return (
+<<<<<<< HEAD
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
 
       
@@ -67,6 +76,15 @@ const TeacherDashboard = () => {
         <div>
           <h2 className="text-3xl font-bold text-white">
             Hello, {user?.name || 'Professor'} 👋
+=======
+    <div className="p-6 space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+
+
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h2 className="text-3xl font-bold text-white">
+            Hello, {user?.fullName || 'Professor'} 👋
+>>>>>>> 6599d6c23de3679a93331a350f97371d4da91c47
           </h2>
           <p className="text-slate-400 mt-1">
             Here's what's happening in your classes today.
@@ -81,7 +99,11 @@ const TeacherDashboard = () => {
         </button>
       </div>
 
+<<<<<<< HEAD
       
+=======
+
+>>>>>>> 6599d6c23de3679a93331a350f97371d4da91c47
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {[
           { label: 'Total Students', value: stats.totalStudents, icon: FaUsers, color: 'bg-blue-500' },
@@ -112,7 +134,11 @@ const TeacherDashboard = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> 6599d6c23de3679a93331a350f97371d4da91c47
         <div className="lg:col-span-2 space-y-6">
           <div className="flex items-center justify-between">
             <h3 className="text-xl font-bold text-white">Recent Submissions</h3>
@@ -152,11 +178,18 @@ const TeacherDashboard = () => {
 
                     <td className="px-6 py-4">
                       <span
+<<<<<<< HEAD
                         className={`px-2 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${
                           sub.status === 'Pending'
                             ? 'bg-orange-500/10 text-orange-400'
                             : 'bg-emerald-500/10 text-emerald-400'
                         }`}
+=======
+                        className={`px-2 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${sub.status === 'Pending'
+                          ? 'bg-orange-500/10 text-orange-400'
+                          : 'bg-emerald-500/10 text-emerald-400'
+                          }`}
+>>>>>>> 6599d6c23de3679a93331a350f97371d4da91c47
                       >
                         {sub.status}
                       </span>
@@ -182,7 +215,11 @@ const TeacherDashboard = () => {
           </div>
         </div>
 
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> 6599d6c23de3679a93331a350f97371d4da91c47
         <div className="space-y-6">
           <h3 className="text-xl font-bold text-white">Teacher Actions</h3>
 

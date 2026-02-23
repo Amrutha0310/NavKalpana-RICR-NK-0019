@@ -39,6 +39,7 @@ const Login = () => {
       setUser(res.data.data);
       setIsLogin(true);
       sessionStorage.setItem("LearningUser", JSON.stringify(res.data.data));
+      window.dispatchEvent(new Event("userLogin"));
 
       handleClearForm();
       switch (res.data.data.role) {
@@ -82,7 +83,7 @@ const Login = () => {
       <section className="min-h-screen flex items-center justify-center bg-base-200 `bg-linear-to-br` from-indigo-100 via-blue-100 to-purple-100 px-3">
         <div className="card w-full max-w-md shadow-2xl bg-base-100 border border-primary">
           <div className="card-body">
-           
+
             <div className="text-center mb-3">
               <h2 className="text-3xl font-bold text-primary">
                 Student Portal Login 🎓
@@ -93,7 +94,7 @@ const Login = () => {
             </div>
 
             <form onSubmit={handleSubmit} onReset={handleClearForm}>
-             
+
               <div className="form-control mb-4">
                 <label className="label">
                   <span className="label-text font-semibold">Email</span>
@@ -112,7 +113,7 @@ const Login = () => {
                 </div>
               </div>
 
-             
+
               <div className="form-control mb-6">
                 <label className="label">
                   <span className="label-text font-semibold">Password</span>
@@ -131,7 +132,7 @@ const Login = () => {
                 </div>
               </div>
 
-             
+
               <div className="mt-4 flex gap-3">
                 <button
                   type="submit"
@@ -142,7 +143,7 @@ const Login = () => {
                 </button>
               </div>
 
-            
+
               <div className="text-center mt-4 text-sm">
                 <button type="button" className="link link-primary">
                   Forgot Password?

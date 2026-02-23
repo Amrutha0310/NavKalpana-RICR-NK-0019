@@ -24,6 +24,7 @@ const StudentsDashboard = () => {
   useEffect(() => {
     const fetchDashboard = async () => {
       try {
+<<<<<<< HEAD
         const token = localStorage.getItem("token");
         const res = await api.get("/users/dashboard", {
           headers: { Authorization: `Bearer ${token}` },
@@ -33,6 +34,16 @@ const StudentsDashboard = () => {
         const weeklyChartWithColors = res.data.weeklyChart.map((item, index) => ({
           ...item,
           fill: index === 3 ? "#38bdf8" : "#1e293b", // highlight mid-week bar
+=======
+        const res = await api.get("/user/dashboard");
+
+        const weeklyDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        const today = weeklyDays[new Date().getDay()];
+
+        const weeklyChartWithColors = res.data.weeklyChart.map((item) => ({
+          ...item,
+          fill: item.day === today ? "#38bdf8" : "#1e293b",
+>>>>>>> 6599d6c23de3679a93331a350f97371d4da91c47
         }));
 
         setData({
@@ -55,6 +66,11 @@ const StudentsDashboard = () => {
     return "Good Evening";
   };
 
+<<<<<<< HEAD
+=======
+  const user = JSON.parse(sessionStorage.getItem("LearningUser"));
+
+>>>>>>> 6599d6c23de3679a93331a350f97371d4da91c47
   if (loading) {
     return (
       <div className="flex items-center justify-center h-full">
@@ -64,12 +80,21 @@ const StudentsDashboard = () => {
   }
 
   return (
+<<<<<<< HEAD
     <div className="space-y-8 animate-in fade-in duration-700">
     
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h2 className="text-3xl font-bold text-white">
             {getGreeting()}, {data?.name}! 👋
+=======
+    <div className="p-6 space-y-8 animate-in fade-in duration-700">
+
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h2 className="text-3xl font-bold text-white">
+            {getGreeting()}, {user?.fullName || 'Student'}! 👋
+>>>>>>> 6599d6c23de3679a93331a350f97371d4da91c47
           </h2>
           <p className="text-slate-400 mt-1">
             Here's what's happening with your learning today.
@@ -98,7 +123,11 @@ const StudentsDashboard = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard
           title="Academic Score"
+<<<<<<< HEAD
           value={`${data?.performance}%`}
+=======
+          value={`${data?.performance || 0}%`}
+>>>>>>> 6599d6c23de3679a93331a350f97371d4da91c47
           desc="Overall Performance"
           icon={FaTrophy}
           color="text-yellow-500"
@@ -106,7 +135,11 @@ const StudentsDashboard = () => {
         />
         <StatCard
           title="Assignments"
+<<<<<<< HEAD
           value={`${data?.assignments.completed}/${data?.assignments.total}`}
+=======
+          value={`${data?.assignments.completed || 0}/${data?.assignments.total || 0}`}
+>>>>>>> 6599d6c23de3679a93331a350f97371d4da91c47
           desc="Completed Tasks"
           icon={FaBullseye}
           color="text-emerald-500"
@@ -114,7 +147,11 @@ const StudentsDashboard = () => {
         />
         <StatCard
           title="Learning Streak"
+<<<<<<< HEAD
           value={data?.learningStreak}
+=======
+          value={data?.learningStreak || 0}
+>>>>>>> 6599d6c23de3679a93331a350f97371d4da91c47
           desc="Days in a row"
           icon={FaFire}
           color="text-orange-500"
@@ -122,7 +159,11 @@ const StudentsDashboard = () => {
         />
         <StatCard
           title="Skills Acquired"
+<<<<<<< HEAD
           value={`${data?.skillsCount}/${data?.totalSkills}`}
+=======
+          value={`${data?.skillsCount || 0}/${data?.totalSkills || 0}`}
+>>>>>>> 6599d6c23de3679a93331a350f97371d4da91c47
           desc="Total Skills"
           icon={FaGraduationCap}
           color="text-blue-500"
@@ -130,9 +171,15 @@ const StudentsDashboard = () => {
         />
       </div>
 
+<<<<<<< HEAD
       
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         
+=======
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+>>>>>>> 6599d6c23de3679a93331a350f97371d4da91c47
         <div className="lg:col-span-2 glass p-6 rounded-3xl border border-slate-800">
           <h3 className="text-xl font-bold text-white mb-6">
             Weekly Progress
@@ -146,14 +193,22 @@ const StudentsDashboard = () => {
                 <Bar
                   dataKey="count"
                   radius={[6, 6, 0, 0]}
+<<<<<<< HEAD
                   // Each bar will automatically use the fill from data
+=======
+                // Each bar will automatically use the fill from data
+>>>>>>> 6599d6c23de3679a93331a350f97371d4da91c47
                 />
               </BarChart>
             </ResponsiveContainer>
           </div>
         </div>
 
+<<<<<<< HEAD
       
+=======
+
+>>>>>>> 6599d6c23de3679a93331a350f97371d4da91c47
         <div className="glass p-6 rounded-3xl border border-slate-800">
           <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
             <FaCalendarAlt className="text-primary-500" />
