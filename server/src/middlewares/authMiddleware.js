@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import User from "../models/UserModel.js";
 
 
-export const Protect = async (req, res, next) => {
+ const Protect = async (req, res, next) => {
   try {
     const token = req.cookies.parleG;
     console.log("token recived in cookies:", token); 
@@ -25,4 +25,4 @@ export const Protect = async (req, res, next) => {
     next(error);
   }
 };
-
+export default Protect;

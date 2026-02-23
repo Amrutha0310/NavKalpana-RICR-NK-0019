@@ -5,7 +5,7 @@ import {
   getDoubts,
   getAttendance,
   resolveDoubt,
-} from "../controllers/supportController";
+} from "../controllers/supportController.js";
 import protect from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
