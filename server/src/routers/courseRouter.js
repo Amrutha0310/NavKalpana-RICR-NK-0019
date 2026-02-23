@@ -4,9 +4,10 @@ import {
   getCourses,
   getCourseById,
   createCourse,
+  enrollInCourse,
   markLessonComplete,
   markCourseComplete,
-} from "../controllers/courseController";
+} from "../controllers/courseController.js";
 import protect from "../middlewares/authMiddleware.js"
 
 const router = express.Router();

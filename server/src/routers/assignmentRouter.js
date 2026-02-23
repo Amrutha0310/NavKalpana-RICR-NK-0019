@@ -5,7 +5,7 @@ import {
   submitAssignment,
   getSubmissions,
   evaluateSubmission,
-} from "../controllers/assignmentController";
+} from "../controllers/assignmentController.js";
 import protect from "../middlewares/authMiddleware.js";
 
 const router = express.Router();

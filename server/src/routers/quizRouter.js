@@ -4,7 +4,7 @@ import {
   getQuizzes,
   getQuizById,
   submitQuizAttempt,
-} from "../controllers/quizController";
+} from "../controllers/quizController.js";
 import protect from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
