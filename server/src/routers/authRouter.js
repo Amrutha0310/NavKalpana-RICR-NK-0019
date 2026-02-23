@@ -6,10 +6,13 @@ import {UserLogin,UserRegister} from "../controllers/authController.js"
 
  router.post("/register",UserRegister);
  router.post("/login",UserLogin);
- // logout(get)
+router.get("/logout", UserLogout);
 
 
  // otp/password
+//  router.post("/genOtp", UserGenOTP);
+// router.post("/verifyOtp", UserVerifyOtp);
+// router.post("/forgetPassword",ProtectOtp, UserForgetPassword)
 
  export default router;
  
