@@ -105,4 +105,15 @@ export const submitQuizAttempt = async (req, res, next) => {
     }
 };
 
+//  Delete a quiz
+export const deleteQuiz = async (req, res, next) => {
+    try {
+        const quiz = await Quiz.findByIdAndDelete(req.params.id);
+        if (!quiz) return res.status(404).json({ message: 'Quiz not found' });
+        res.json({ message: 'Quiz deleted successfully' });
+    } catch (error) {
+        next(error);
+    }
+};
+
 
