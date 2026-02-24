@@ -107,15 +107,15 @@ const Support = () => {
         );
 
     return (
-        <div className="p-8 space-y-12 animate-in fade-in duration-700 max-w-7xl mx-auto">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
-                <div className="space-y-2">
-                    <h2 className="text-4xl font-black text-base-content tracking-tight uppercase">
+        <div className="p-4 sm:p-6 space-y-6 sm:space-y-8 animate-in fade-in duration-700 max-w-6xl mx-auto">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="space-y-1">
+                    <h2 className="text-xl sm:text-2xl font-black text-base-content tracking-tight uppercase">
                         {role === 'teacher'
                             ? 'Doubt Resolution hub'
                             : 'Intelligence support'}
                     </h2>
-                    <p className="text-base-content/50 font-medium">
+                    <p className="text-base-content/50 font-medium text-sm">
                         {role === 'teacher'
                             ? 'Direct communication channel with your students.'
                             : "Connect with faculty for tactical guidance."}
@@ -125,7 +125,7 @@ const Support = () => {
                 {role === 'student' && (
                     <button
                         onClick={() => setShowForm(true)}
-                        className="btn btn-primary rounded-2xl flex items-center gap-3 shadow-xl shadow-primary/20 h-16 px-10 font-black text-sm uppercase tracking-widest group active:scale-95 transition-all"
+                        className="btn btn-primary btn-sm sm:btn-md rounded-xl flex items-center gap-2 shadow-lg shadow-primary/20 px-6 font-bold text-xs uppercase tracking-wider group active:scale-95 transition-all"
                     >
                         <FiPlus size={24} className="group-hover:rotate-90 transition-transform" />
                         Initiate Query
@@ -133,33 +133,33 @@ const Support = () => {
                 )}
             </div>
 
-            <div className="space-y-8">
-                <div className="space-y-8">
-                    <div className="flex items-center gap-4 mb-4">
-                        <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
-                            <FiMessageSquare size={20} />
+            <div className="space-y-4 sm:space-y-6">
+                <div className="space-y-4 sm:space-y-6">
+                    <div className="flex items-center gap-3 mb-3">
+                        <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center text-primary">
+                            <FiMessageSquare size={16} />
                         </div>
-                        <h3 className="text-xl font-black text-base-content uppercase tracking-widest">
+                        <h3 className="text-sm sm:text-base font-bold text-base-content uppercase tracking-wider">
                             {role === 'teacher' ? 'Active Transmissions' : 'Your Transmission History'}
                         </h3>
                     </div>
 
-                    <div className="space-y-6">
+                    <div className="space-y-4">
                         {doubts.map((doubt) => (
                             <div
                                 key={doubt._id}
-                                className="bg-base-100 p-8 md:p-10 rounded-[2.5rem] border border-base-300 shadow-sm hover:shadow-2xl transition-all duration-500 group relative overflow-hidden"
+                                className="bg-base-100 p-4 sm:p-6 rounded-2xl border border-base-300 shadow-sm hover:shadow-xl transition-all duration-500 group relative overflow-hidden"
                             >
-                                <div className="absolute top-0 right-0 w-2 h-full bg-primary/5 group-hover:bg-primary transition-colors"></div>
+                                <div className="absolute top-0 right-0 w-1.5 h-full bg-primary/5 group-hover:bg-primary transition-colors"></div>
 
-                                <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 mb-8">
-                                    <div className="flex items-start gap-5">
-                                        <div className="p-5 rounded-2xl bg-base-200 text-primary shadow-inner shrink-0">
-                                            <FiMessageSquare size={28} />
+                                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
+                                    <div className="flex items-start gap-3">
+                                        <div className="p-3 rounded-xl bg-base-200 text-primary shadow-inner shrink-0">
+                                            <FiMessageSquare size={20} />
                                         </div>
 
                                         <div className="space-y-1">
-                                            <h4 className="font-black text-base-content text-2xl tracking-tight">
+                                            <h4 className="font-bold text-base-content text-base sm:text-lg tracking-tight">
                                                 {doubt.topic}
                                             </h4>
                                             <div className="flex flex-wrap items-center gap-3 text-[10px] font-black text-base-content/40 uppercase tracking-[0.2em]">
@@ -186,20 +186,20 @@ const Support = () => {
                                 </div>
 
                                 <div className="relative">
-                                    <blockquote className="text-base-content/70 text-lg mb-8 leading-relaxed bg-base-200/50 p-8 rounded-[2rem] border border-base-300 font-medium italic">
+                                    <blockquote className="text-base-content/70 text-sm sm:text-base mb-4 leading-relaxed bg-base-200/50 p-4 sm:p-5 rounded-xl border border-base-300 font-medium italic">
                                         "{doubt.description}"
                                     </blockquote>
 
                                     {doubt.teacherReply ? (
                                         <div className="mt-8 space-y-4 animate-in slide-in-from-top-4">
-                                            <div className="flex items-center gap-2 text-xs font-black text-emerald-600 uppercase tracking-widest ml-4">
+                                            <div className="flex items-center gap-2 text-[10px] font-bold text-emerald-600 uppercase tracking-wider ml-2">
                                                 <FiCornerDownRight /> FACULTY RESPONSE
                                             </div>
-                                            <div className="bg-emerald-500/5 border-2 border-emerald-500/20 p-8 rounded-[2rem] relative">
+                                            <div className="bg-emerald-500/5 border-2 border-emerald-500/20 p-4 sm:p-5 rounded-xl relative">
                                                 <p className="text-base-content font-bold leading-relaxed">
                                                     {doubt.teacherReply}
                                                 </p>
-                                                <div className="flex items-center gap-2 mt-4 text-[10px] font-black text-emerald-600/50">
+                                                <div className="flex items-center gap-2 mt-3 text-[9px] font-bold text-emerald-600/50">
                                                     <FiCheckCircle /> VERIFIED INTEL • AUTHENTICATED BY FACULTY
                                                 </div>
                                             </div>
@@ -248,12 +248,12 @@ const Support = () => {
                         ))}
 
                         {doubts.length === 0 && (
-                            <div className="text-center py-32 bg-base-100 rounded-[3rem] border-4 border-dashed border-base-200">
+                            <div className="text-center py-16 sm:py-24 bg-base-100 rounded-2xl border-2 border-dashed border-base-200">
                                 <FiMessageSquare
-                                    className="mx-auto mb-6 text-base-content/5"
-                                    size={100}
+                                    className="mx-auto mb-4 text-base-content/5"
+                                    size={64}
                                 />
-                                <h3 className="text-2xl font-black text-base-content/20 uppercase tracking-widest">
+                                <h3 className="text-lg sm:text-xl font-bold text-base-content/20 uppercase tracking-widest">
                                     Clean Frequency
                                 </h3>
                                 <p className="text-base-content/20 font-bold mt-2 italic">
@@ -267,16 +267,16 @@ const Support = () => {
 
             {/* Student Request Modal */}
             {showForm && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/80 backdrop-blur-xl animate-in fade-in duration-300">
-                    <div className="max-w-2xl w-full bg-base-100 border border-base-300 rounded-[3rem] p-12 shadow-2xl animate-in zoom-in-95 relative overflow-hidden">
-                        <div className="absolute top-0 left-0 w-full h-2 bg-primary"></div>
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xl animate-in fade-in duration-300">
+                    <div className="max-w-lg w-full bg-base-100 border border-base-300 rounded-2xl p-6 sm:p-8 shadow-2xl animate-in zoom-in-95 relative overflow-hidden max-h-[90vh] overflow-y-auto">
+                        <div className="absolute top-0 left-0 w-full h-1.5 bg-primary"></div>
 
-                        <div className="flex items-center justify-between mb-12">
-                            <h3 className="text-3xl font-black text-base-content flex items-center gap-4 uppercase tracking-tighter">
-                                <div className="w-12 h-12 bg-primary/20 rounded-2xl flex items-center justify-center text-primary group">
-                                    <FiPlus className="group-hover:rotate-90 transition-transform" />
+                        <div className="flex items-center justify-between mb-6">
+                            <h3 className="text-lg sm:text-xl font-bold text-base-content flex items-center gap-3 uppercase tracking-tight">
+                                <div className="w-9 h-9 bg-primary/20 rounded-xl flex items-center justify-center text-primary">
+                                    <FiPlus size={16} />
                                 </div>
-                                Transmit Intel Request
+                                New Query
                             </h3>
                             <button
                                 onClick={() => setShowForm(false)}
@@ -288,16 +288,16 @@ const Support = () => {
 
                         <form
                             onSubmit={handleSubmit}
-                            className="space-y-10"
+                            className="space-y-6"
                         >
-                            <div className="space-y-4">
-                                <label className="text-[10px] font-black text-base-content/40 uppercase tracking-[0.3em] ml-2">
-                                    Target Subject
+                            <div className="space-y-2">
+                                <label className="text-[10px] font-bold text-base-content/40 uppercase tracking-wider ml-1">
+                                    Subject
                                 </label>
                                 <div className="relative group">
                                     <input
                                         required
-                                        className="input input-bordered w-full rounded-2xl h-16 font-bold bg-base-200 border-none focus:ring-4 focus:ring-primary/10 transition-all pl-12"
+                                        className="input input-bordered w-full rounded-xl h-12 font-medium bg-base-200 border-none focus:ring-2 focus:ring-primary/10 transition-all pl-10 text-sm"
                                         value={formData.topic}
                                         placeholder="Briefly state your technical query..."
                                         onChange={(e) =>
@@ -307,17 +307,17 @@ const Support = () => {
                                             })
                                         }
                                     />
-                                    <FiInfo className="absolute left-4 top-1/2 -translate-y-1/2 text-primary" size={20} />
+                                    <FiInfo className="absolute left-3 top-1/2 -translate-y-1/2 text-primary" size={16} />
                                 </div>
                             </div>
 
-                            <div className="space-y-4">
-                                <label className="text-[10px] font-black text-base-content/40 uppercase tracking-[0.3em] ml-2">
-                                    Mission Parameters (Description)
+                            <div className="space-y-2">
+                                <label className="text-[10px] font-bold text-base-content/40 uppercase tracking-wider ml-1">
+                                    Description
                                 </label>
                                 <textarea
                                     required
-                                    className="textarea textarea-bordered w-full rounded-[2rem] h-40 font-bold bg-base-200 border-none focus:ring-4 focus:ring-primary/10 transition-all p-8 leading-relaxed"
+                                    className="textarea textarea-bordered w-full rounded-xl h-28 font-medium bg-base-200 border-none focus:ring-2 focus:ring-primary/10 transition-all p-4 leading-relaxed text-sm"
                                     placeholder="Explain the specific gap in your intel..."
                                     value={formData.description}
                                     onChange={(e) =>
@@ -332,7 +332,7 @@ const Support = () => {
                             <button
                                 type="submit"
                                 disabled={submitting}
-                                className="btn btn-primary w-full rounded-2xl h-16 text-sm font-black uppercase tracking-[0.2em] shadow-xl shadow-primary/30 group active:scale-[0.98] transition-all"
+                                className="btn btn-primary w-full rounded-xl h-12 text-xs font-bold uppercase tracking-wider shadow-lg shadow-primary/20 active:scale-[0.98] transition-all"
                             >
                                 {submitting ? (
                                     <FiLoader
