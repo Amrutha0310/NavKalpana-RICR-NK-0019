@@ -39,59 +39,59 @@ const Attendance = () => {
     );
 
     return (
-        <div className="p-6 space-y-8 animate-in slide-in-from-top-4 duration-700">
+        <div className="p-4 sm:p-6 space-y-6 animate-in slide-in-from-top-4 duration-700 max-w-6xl mx-auto">
             <div>
-                <h2 className="text-3xl font-bold text-base-content">Attendance Tracking</h2>
-                <p className="text-base-content/60 mt-1">Keep track of your classes and participation.</p>
+                <h2 className="text-xl sm:text-2xl font-bold text-base-content">Attendance Tracking</h2>
+                <p className="text-base-content/60 text-sm mt-1">Keep track of your classes and participation.</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="bg-base-100 p-8 rounded-3xl border border-base-300 shadow-sm flex items-center gap-6">
-                    <div className="w-16 h-16 bg-primary/10 text-primary rounded-2xl flex items-center justify-center">
-                        <FiTrendingUp size={32} />
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+                <div className="bg-base-100 p-4 sm:p-6 rounded-2xl border border-base-300 shadow-sm flex items-center gap-4">
+                    <div className="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center">
+                        <FiTrendingUp size={24} />
                     </div>
                     <div>
-                        <p className="text-sm font-bold text-base-content/40 uppercase tracking-widest">
+                        <p className="text-xs font-bold text-base-content/40 uppercase tracking-wider">
                             Overall Attendance
                         </p>
-                        <h3 className="text-4xl font-bold text-base-content">
+                        <h3 className="text-2xl sm:text-3xl font-bold text-base-content">
                             {calculateOverall()}%
                         </h3>
                     </div>
                 </div>
 
-                <div className="bg-base-100 p-8 rounded-3xl border border-base-300 shadow-sm flex items-center gap-6">
-                    <div className="w-16 h-16 bg-emerald-500/10 text-emerald-600 rounded-2xl flex items-center justify-center">
-                        <FiCheckCircle size={32} />
+                <div className="bg-base-100 p-4 sm:p-6 rounded-2xl border border-base-300 shadow-sm flex items-center gap-4">
+                    <div className="w-12 h-12 bg-emerald-500/10 text-emerald-600 rounded-xl flex items-center justify-center">
+                        <FiCheckCircle size={24} />
                     </div>
                     <div>
-                        <p className="text-sm font-bold text-base-content/40 uppercase tracking-widest">
+                        <p className="text-xs font-bold text-base-content/40 uppercase tracking-wider">
                             Classes Present
                         </p>
-                        <h3 className="text-4xl font-bold text-base-content">
+                        <h3 className="text-2xl sm:text-3xl font-bold text-base-content">
                             {attendance.filter(a => a.status === 'Present').length}
                         </h3>
                     </div>
                 </div>
 
-                <div className="bg-base-100 p-8 rounded-3xl border border-base-300 shadow-sm flex items-center gap-6">
-                    <div className="w-16 h-16 bg-error/10 text-error rounded-2xl flex items-center justify-center">
-                        <FiXCircle size={32} />
+                <div className="bg-base-100 p-4 sm:p-6 rounded-2xl border border-base-300 shadow-sm flex items-center gap-4">
+                    <div className="w-12 h-12 bg-error/10 text-error rounded-xl flex items-center justify-center">
+                        <FiXCircle size={24} />
                     </div>
                     <div>
-                        <p className="text-sm font-bold text-base-content/40 uppercase tracking-widest">
+                        <p className="text-xs font-bold text-base-content/40 uppercase tracking-wider">
                             Classes Absent
                         </p>
-                        <h3 className="text-4xl font-bold text-base-content">
+                        <h3 className="text-2xl sm:text-3xl font-bold text-base-content">
                             {attendance.filter(a => a.status === 'Absent').length}
                         </h3>
                     </div>
                 </div>
             </div>
 
-            <div className="bg-base-100 rounded-3xl border border-base-300 shadow-sm overflow-hidden">
-                <div className="p-6 border-b border-base-300 bg-base-200/30 flex items-center justify-between">
-                    <h3 className="text-xl font-bold text-base-content">
+            <div className="bg-base-100 rounded-2xl border border-base-300 shadow-sm overflow-hidden">
+                <div className="p-4 sm:p-5 border-b border-base-300 bg-base-200/30 flex items-center justify-between">
+                    <h3 className="text-base sm:text-lg font-bold text-base-content">
                         Attendance History
                     </h3>
                     <div className="flex items-center gap-2 text-base-content/40 text-sm font-medium">
@@ -101,13 +101,13 @@ const Attendance = () => {
                 </div>
 
                 <div className="overflow-x-auto">
-                    <table className="w-full text-left">
+                    <table className="w-full text-left min-w-[500px]">
                         <thead>
-                            <tr className="text-base-content/50 text-xs font-bold uppercase tracking-wider">
-                                <th className="px-8 py-4">Course Name</th>
-                                <th className="px-8 py-4">Date</th>
-                                <th className="px-8 py-4">Status</th>
-                                <th className="px-8 py-4">Session</th>
+                            <tr className="text-base-content/50 text-[10px] sm:text-xs font-bold uppercase tracking-wider">
+                                <th className="px-4 sm:px-6 py-3">Course Name</th>
+                                <th className="px-4 sm:px-6 py-3">Date</th>
+                                <th className="px-4 sm:px-6 py-3">Status</th>
+                                <th className="px-4 sm:px-6 py-3">Session</th>
                             </tr>
                         </thead>
 
@@ -117,18 +117,18 @@ const Attendance = () => {
                                     key={record._id}
                                     className="hover:bg-base-200/50 transition-colors group"
                                 >
-                                    <td className="px-8 py-4 font-semibold text-base-content">
+                                    <td className="px-4 sm:px-6 py-3 font-semibold text-sm text-base-content">
                                         {record.course.name}
                                     </td>
 
-                                    <td className="px-8 py-4 text-base-content/60">
+                                    <td className="px-4 sm:px-6 py-3 text-base-content/60 text-sm">
                                         <div className="flex items-center gap-2">
                                             <FiCalendar size={14} className="text-primary" />
                                             {new Date(record.date).toLocaleDateString()}
                                         </div>
                                     </td>
 
-                                    <td className="px-8 py-4">
+                                    <td className="px-4 sm:px-6 py-3">
                                         <span
                                             className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold ${record.status === 'Present'
                                                 ? 'bg-emerald-500/10 text-emerald-600 border border-emerald-500/20'
@@ -145,8 +145,8 @@ const Attendance = () => {
                                         </span>
                                     </td>
 
-                                    <td className="px-8 py-4 text-base-content/60">
-                                        <div className="flex items-center gap-2 font-medium">
+                                    <td className="px-4 sm:px-6 py-3 text-base-content/60">
+                                        <div className="flex items-center gap-2 font-medium text-sm">
                                             <FiClock size={14} className="text-base-content/30" />
                                             Theory Class
                                         </div>

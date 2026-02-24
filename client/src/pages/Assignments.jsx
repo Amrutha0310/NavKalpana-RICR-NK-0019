@@ -117,112 +117,112 @@ const Assignments = () => {
   }
 
   const renderTeacherView = () => (
-    <div className="p-8 space-y-12 animate-in slide-in-from-right-4 duration-700 max-w-7xl mx-auto">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
-        <div className="space-y-2">
-          <h2 className="text-4xl font-black text-base-content tracking-tight uppercase">STUDENT WORK & INTEL</h2>
-          <p className="text-base-content/50 font-medium italic">Monitor transmissions and deploy new challenges.</p>
+    <div className="p-4 sm:p-6 space-y-6 animate-in slide-in-from-right-4 duration-700 max-w-6xl mx-auto">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="space-y-1">
+          <h2 className="text-xl sm:text-2xl font-bold text-base-content tracking-tight uppercase">Student Work & Intel</h2>
+          <p className="text-base-content/50 font-medium text-sm italic">Monitor transmissions and deploy new challenges.</p>
         </div>
 
         <button
           onClick={() => setShowCreateModal(true)}
-          className="btn btn-primary rounded-2xl flex items-center gap-3 shadow-xl shadow-primary/20 h-16 px-10 font-black text-sm uppercase tracking-widest group active:scale-95 transition-all"
+          className="btn btn-primary btn-sm sm:btn-md rounded-xl flex items-center gap-2 shadow-lg shadow-primary/20 px-6 font-bold text-xs uppercase tracking-wider group active:scale-95 transition-all"
         >
-          <FaPlus size={18} className="group-hover:rotate-90 transition-transform" /> Deploy Assignment
+          <FaPlus size={14} className="group-hover:rotate-90 transition-transform" /> Deploy Assignment
         </button>
       </div>
 
       {/* Stats Summary */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-base-100 p-8 rounded-[2rem] border border-base-300 shadow-sm flex items-center gap-6">
-          <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
-            <FaBook size={28} />
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+        <div className="bg-base-100 p-4 sm:p-5 rounded-2xl border border-base-300 shadow-sm flex items-center gap-4">
+          <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+            <FaBook size={20} />
           </div>
           <div>
-            <p className="text-4xl font-black text-base-content">{assignments.length}</p>
-            <p className="text-[10px] font-black uppercase text-base-content/40 tracking-widest">Active Assignments</p>
+            <p className="text-2xl font-bold text-base-content">{assignments.length}</p>
+            <p className="text-[10px] font-bold uppercase text-base-content/40 tracking-wider">Active Assignments</p>
           </div>
         </div>
-        <div className="bg-base-100 p-8 rounded-[2rem] border border-base-300 shadow-sm flex items-center gap-6">
-          <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 flex items-center justify-center text-emerald-600">
-            <FaCheckCircle size={28} />
+        <div className="bg-base-100 p-4 sm:p-5 rounded-2xl border border-base-300 shadow-sm flex items-center gap-4">
+          <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-600">
+            <FaCheckCircle size={20} />
           </div>
           <div>
-            <p className="text-4xl font-black text-base-content">{submissions.length}</p>
-            <p className="text-[10px] font-black uppercase text-base-content/40 tracking-widest">Total Submissions</p>
+            <p className="text-2xl font-bold text-base-content">{submissions.length}</p>
+            <p className="text-[10px] font-bold uppercase text-base-content/40 tracking-wider">Total Submissions</p>
           </div>
         </div>
-        <div className="bg-base-100 p-8 rounded-[2rem] border border-base-300 shadow-sm flex items-center gap-6">
-          <div className="w-16 h-16 rounded-2xl bg-orange-500/10 flex items-center justify-center text-orange-600">
-            <FaTrophy size={28} />
+        <div className="bg-base-100 p-4 sm:p-5 rounded-2xl border border-base-300 shadow-sm flex items-center gap-4">
+          <div className="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-600">
+            <FaTrophy size={20} />
           </div>
           <div>
-            <p className="text-4xl font-black text-base-content">{submissions.filter(s => s.status === 'Evaluated').length}</p>
-            <p className="text-[10px] font-black uppercase text-base-content/40 tracking-widest">Graded Units</p>
+            <p className="text-2xl font-bold text-base-content">{submissions.filter(s => s.status === 'Evaluated').length}</p>
+            <p className="text-[10px] font-bold uppercase text-base-content/40 tracking-wider">Graded Units</p>
           </div>
         </div>
       </div>
 
-      <div className="bg-base-100 shadow-xl rounded-[2.5rem] border border-base-300 overflow-hidden relative">
-        <div className="absolute top-0 left-0 w-full h-1.5 bg-primary/20"></div>
-        <div className="p-8 border-b border-base-300 flex items-center justify-between bg-base-200/30">
-          <h3 className="text-xl font-black uppercase tracking-widest">Recent Transmissions</h3>
+      <div className="bg-base-100 shadow-xl rounded-2xl border border-base-300 overflow-hidden relative">
+        <div className="absolute top-0 left-0 w-full h-1 bg-primary/20"></div>
+        <div className="p-4 sm:p-5 border-b border-base-300 flex items-center justify-between bg-base-200/30">
+          <h3 className="text-base sm:text-lg font-bold uppercase tracking-wider">Recent Transmissions</h3>
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-left">
-            <thead className="bg-base-200/50 text-base-content/60 text-[10px] font-black uppercase tracking-[0.2em]">
+          <table className="w-full text-left min-w-[600px]">
+            <thead className="bg-base-200/50 text-base-content/60 text-[10px] font-bold uppercase tracking-wider">
               <tr>
-                <th className="px-10 py-6 text-center w-20">#</th>
-                <th className="px-6 py-6">Student Intel</th>
-                <th className="px-6 py-6">Target Assignment</th>
-                <th className="px-6 py-6">Timestamp</th>
-                <th className="px-6 py-6">Sync Status</th>
-                <th className="px-10 py-6 text-right">Result</th>
+                <th className="px-4 sm:px-6 py-3 text-center w-12">#</th>
+                <th className="px-4 sm:px-6 py-3">Student</th>
+                <th className="px-4 sm:px-6 py-3">Assignment</th>
+                <th className="px-4 sm:px-6 py-3">Timestamp</th>
+                <th className="px-4 sm:px-6 py-3">Status</th>
+                <th className="px-4 sm:px-6 py-3 text-right">Result</th>
               </tr>
             </thead>
 
             <tbody className="divide-y divide-base-200">
               {submissions.length === 0 ? (
                 <tr>
-                  <td colSpan="6" className="py-32 text-center">
-                    <div className="flex flex-col items-center gap-4 opacity-20">
-                      <FaUser size={64} />
-                      <p className="text-xl font-black uppercase tracking-widest italic">No Intel Detected</p>
+                  <td colSpan="6" className="py-16 text-center">
+                    <div className="flex flex-col items-center gap-3 opacity-20">
+                      <FaUser size={40} />
+                      <p className="text-sm font-bold uppercase tracking-wider italic">No Submissions Yet</p>
                     </div>
                   </td>
                 </tr>
               ) : (
                 submissions.map((sub, idx) => (
                   <tr key={sub._id} className="hover:bg-primary/5 transition-all duration-300 group cursor-default">
-                    <td className="px-10 py-8 text-center font-black text-base-content/20 italic">{idx + 1}</td>
-                    <td className="px-6 py-8">
-                      <div className="flex gap-4 items-center">
-                        <div className="w-12 h-12 rounded-2xl bg-base-200 flex items-center justify-center text-primary font-black shadow-inner">
+                    <td className="px-4 sm:px-6 py-3 text-center font-bold text-base-content/20 text-sm">{idx + 1}</td>
+                    <td className="px-4 sm:px-6 py-3">
+                      <div className="flex gap-3 items-center">
+                        <div className="w-8 h-8 rounded-lg bg-base-200 flex items-center justify-center text-primary font-bold text-sm shadow-inner">
                           {sub.student.fullName.charAt(0)}
                         </div>
                         <div>
-                          <p className="text-base-content font-black text-lg tracking-tight group-hover:text-primary transition-colors">{sub.student.fullName}</p>
-                          <p className="text-[10px] font-black uppercase text-base-content/40 tracking-widest">{sub.student.email}</p>
+                          <p className="text-base-content font-bold text-sm group-hover:text-primary transition-colors">{sub.student.fullName}</p>
+                          <p className="text-[10px] font-bold text-base-content/40">{sub.student.email}</p>
                         </div>
                       </div>
                     </td>
-                    <td className="px-6 py-8">
-                      <p className="font-black text-base-content/80 uppercase text-xs tracking-widest">{sub.assignment?.title}</p>
+                    <td className="px-4 sm:px-6 py-3">
+                      <p className="font-bold text-base-content/80 uppercase text-xs tracking-wider">{sub.assignment?.title}</p>
                     </td>
-                    <td className="px-6 py-8">
-                      <div className="flex items-center gap-2 text-[10px] font-black text-base-content/40 uppercase tracking-widest">
+                    <td className="px-4 sm:px-6 py-3">
+                      <div className="flex items-center gap-2 text-[10px] font-bold text-base-content/40">
                         <FaClock className="text-primary/50" />
                         {new Date(sub.createdAt).toLocaleDateString()}
                       </div>
                     </td>
-                    <td className="px-6 py-8">
-                      <span className={`text-[9px] font-black px-4 py-1.5 rounded-full border uppercase tracking-widest shadow-sm ${sub.status === "Evaluated" ? "bg-emerald-500/10 text-emerald-600 border-emerald-500/20" : "bg-orange-500/10 text-orange-600 border-orange-500/20 animate-pulse"
+                    <td className="px-4 sm:px-6 py-3">
+                      <span className={`text-[9px] font-bold px-3 py-1 rounded-full border uppercase tracking-wider ${sub.status === "Evaluated" ? "bg-emerald-500/10 text-emerald-600 border-emerald-500/20" : "bg-orange-500/10 text-orange-600 border-orange-500/20 animate-pulse"
                         }`}>
                         {sub.status}
                       </span>
                     </td>
-                    <td className="px-10 py-8 text-right font-black text-2xl text-primary tracking-tighter">
+                    <td className="px-4 sm:px-6 py-3 text-right font-bold text-lg text-primary">
                       {sub.marks ? `${sub.marks}` : "--"}
                     </td>
                   </tr>
@@ -235,65 +235,63 @@ const Assignments = () => {
 
       {/* Create Modal */}
       {showCreateModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/80 backdrop-blur-xl animate-in fade-in duration-300">
-          <div className="max-w-2xl w-full bg-base-100 border border-base-300 rounded-[3rem] p-12 shadow-2xl animate-in zoom-in-95 relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-2 bg-primary"></div>
-            <div className="flex items-center justify-between mb-12">
-              <h3 className="text-3xl font-black text-base-content flex items-center gap-4 uppercase tracking-tighter italic">
-                <div className="w-12 h-12 bg-primary/20 rounded-2xl flex items-center justify-center text-primary">
-                  <FaPlus />
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xl animate-in fade-in duration-300">
+          <div className="max-w-lg w-full bg-base-100 border border-base-300 rounded-2xl p-6 sm:p-8 shadow-2xl animate-in zoom-in-95 relative overflow-hidden max-h-[90vh] overflow-y-auto">
+            <div className="absolute top-0 left-0 w-full h-1.5 bg-primary"></div>
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-lg sm:text-xl font-bold text-base-content flex items-center gap-3 uppercase tracking-tight">
+                <div className="w-9 h-9 bg-primary/20 rounded-xl flex items-center justify-center text-primary">
+                  <FaPlus size={14} />
                 </div>
-                Deploy New Challenge
+                New Assignment
               </h3>
-              <button onClick={() => setShowCreateModal(false)} className="btn btn-ghost btn-circle">✕</button>
+              <button onClick={() => setShowCreateModal(false)} className="btn btn-ghost btn-circle btn-sm">✕</button>
             </div>
 
-            <form onSubmit={handleCreateAssignment} className="space-y-8">
-              <div className="space-y-3">
-                <label className="text-[10px] font-black text-base-content/40 uppercase tracking-[0.3em] ml-2">Target Course</label>
+            <form onSubmit={handleCreateAssignment} className="space-y-4">
+              <div className="space-y-1.5">
+                <label className="text-[10px] font-bold text-base-content/40 uppercase tracking-wider ml-1">Course</label>
                 <select
                   required
-                  className="select select-bordered w-full rounded-2xl h-16 font-black bg-base-200 border-none focus:ring-4 focus:ring-primary/10 transition-all select-lg"
+                  className="select select-bordered w-full rounded-xl h-12 font-medium bg-base-200 border-none focus:ring-2 focus:ring-primary/10 transition-all text-sm"
                   value={newAssignment.courseId}
                   onChange={(e) => setNewAssignment({ ...newAssignment, courseId: e.target.value })}
                 >
-                  <option value="">Select Curriculum Sector...</option>
+                  <option value="">Select Course...</option>
                   {courses.map(c => (
                     <option key={c._id} value={c.course?._id || c._id}>{c.course?.name || c.name}</option>
                   ))}
                 </select>
               </div>
 
-              <div className="space-y-3">
-                <label className="text-[10px] font-black text-base-content/40 uppercase tracking-[0.3em] ml-2">Mission Title</label>
+              <div className="space-y-1.5">
+                <label className="text-[10px] font-bold text-base-content/40 uppercase tracking-wider ml-1">Title</label>
                 <input
                   required
-                  className="input input-bordered w-full rounded-2xl h-16 font-black bg-base-200 border-none focus:ring-4 focus:ring-primary/10 transition-all text-lg"
-                  placeholder="Briefly name the challenge..."
+                  className="input input-bordered w-full rounded-xl h-12 font-medium bg-base-200 border-none focus:ring-2 focus:ring-primary/10 transition-all text-sm"
+                  placeholder="Assignment title..."
                   value={newAssignment.title}
                   onChange={(e) => setNewAssignment({ ...newAssignment, title: e.target.value })}
                 />
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-3">
-                  <label className="text-[10px] font-black text-base-content/40 uppercase tracking-[0.3em] ml-2">Execution Deadline</label>
-                  <input
-                    required
-                    type="date"
-                    className="input input-bordered w-full rounded-2xl h-16 font-black bg-base-200 border-none focus:ring-4 focus:ring-primary/10 transition-all"
-                    value={newAssignment.deadline}
-                    onChange={(e) => setNewAssignment({ ...newAssignment, deadline: e.target.value })}
-                  />
-                </div>
+              <div className="space-y-1.5">
+                <label className="text-[10px] font-bold text-base-content/40 uppercase tracking-wider ml-1">Deadline</label>
+                <input
+                  required
+                  type="date"
+                  className="input input-bordered w-full rounded-xl h-12 font-medium bg-base-200 border-none focus:ring-2 focus:ring-primary/10 transition-all text-sm"
+                  value={newAssignment.deadline}
+                  onChange={(e) => setNewAssignment({ ...newAssignment, deadline: e.target.value })}
+                />
               </div>
 
-              <div className="space-y-3">
-                <label className="text-[10px] font-black text-base-content/40 uppercase tracking-[0.3em] ml-2">Tactical Directives</label>
+              <div className="space-y-1.5">
+                <label className="text-[10px] font-bold text-base-content/40 uppercase tracking-wider ml-1">Description</label>
                 <textarea
                   required
-                  className="textarea textarea-bordered w-full rounded-[2rem] h-40 font-black bg-base-200 border-none focus:ring-4 focus:ring-primary/10 transition-all p-8 leading-relaxed"
-                  placeholder="Provide detailed instructions for the students..."
+                  className="textarea textarea-bordered w-full rounded-xl h-28 font-medium bg-base-200 border-none focus:ring-2 focus:ring-primary/10 transition-all p-4 leading-relaxed text-sm"
+                  placeholder="Provide detailed instructions..."
                   value={newAssignment.description}
                   onChange={(e) => setNewAssignment({ ...newAssignment, description: e.target.value })}
                 />
@@ -302,9 +300,9 @@ const Assignments = () => {
               <button
                 type="submit"
                 disabled={submitting}
-                className="btn btn-primary w-full rounded-2xl h-20 text-lg font-black uppercase tracking-[0.2em] shadow-2xl shadow-primary/30 active:scale-[0.98] transition-all"
+                className="btn btn-primary w-full rounded-xl h-12 text-xs font-bold uppercase tracking-wider shadow-lg shadow-primary/20 active:scale-[0.98] transition-all"
               >
-                {submitting ? <FaSpinner className="animate-spin" /> : "Deploy Assignment to Curriculum"}
+                {submitting ? <FaSpinner className="animate-spin" /> : "Deploy Assignment"}
               </button>
             </form>
           </div>
@@ -314,21 +312,21 @@ const Assignments = () => {
   );
 
   const renderStudentView = () => (
-    <div className="p-8 space-y-12 animate-in fade-in duration-700 max-w-7xl mx-auto">
-      <div className="space-y-2">
-        <h2 className="text-4xl font-black text-base-content tracking-tight uppercase italic">Active Missions</h2>
-        <p className="text-base-content/50 font-medium">Verify your objectives and transmit your solutions.</p>
+    <div className="p-4 sm:p-6 space-y-6 animate-in fade-in duration-700 max-w-6xl mx-auto">
+      <div className="space-y-1">
+        <h2 className="text-xl sm:text-2xl font-bold text-base-content tracking-tight uppercase">Active Missions</h2>
+        <p className="text-base-content/50 font-medium text-sm">Verify your objectives and transmit your solutions.</p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
         {assignments.length === 0 ? (
-          <div className="col-span-full py-40 text-center bg-base-100 rounded-[3rem] border-4 border-dashed border-base-200 flex flex-col items-center gap-6">
-            <div className="w-24 h-24 rounded-full bg-base-200 flex items-center justify-center text-base-content/10">
-              <FaCalendarAlt size={48} />
+          <div className="col-span-full py-16 sm:py-24 text-center bg-base-100 rounded-2xl border-2 border-dashed border-base-200 flex flex-col items-center gap-4">
+            <div className="w-16 h-16 rounded-full bg-base-200 flex items-center justify-center text-base-content/10">
+              <FaCalendarAlt size={32} />
             </div>
             <div>
-              <p className="text-3xl font-black uppercase tracking-[0.3em] text-base-content/20 italic">Clean Sector</p>
-              <p className="text-sm font-bold text-base-content/30 mt-2">No active assignments detected. Intelligence high.</p>
+              <p className="text-lg font-bold uppercase tracking-wider text-base-content/20">No Active Assignments</p>
+              <p className="text-xs font-medium text-base-content/30 mt-1">You're all caught up!</p>
             </div>
           </div>
         ) : (
@@ -338,59 +336,55 @@ const Assignments = () => {
             return (
               <div
                 key={assignment._id}
-                className="bg-base-100 p-10 rounded-[3rem] border border-base-300 shadow-sm hover:shadow-2xl transition-all duration-500 group relative overflow-hidden flex flex-col h-full"
+                className="bg-base-100 p-4 sm:p-6 rounded-2xl border border-base-300 shadow-sm hover:shadow-xl transition-all duration-500 group relative overflow-hidden flex flex-col h-full"
               >
-                <div className="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:scale-110 transition-transform duration-700">
-                  <FaBook size={120} />
+                <div className="absolute top-0 right-0 p-4 opacity-[0.03] group-hover:scale-110 transition-transform duration-700">
+                  <FaBook size={80} />
                 </div>
 
-                <div className="flex-1 space-y-6">
+                <div className="flex-1 space-y-4">
                   <div className="space-y-2">
-                    <span className="text-[10px] font-black uppercase text-primary tracking-[0.3em] bg-primary/5 px-4 py-1 rounded-full">{assignment.course?.name}</span>
-                    <h3 className="text-3xl font-black text-base-content tracking-tight group-hover:text-primary transition-colors pr-20">
+                    <span className="text-[10px] font-bold uppercase text-primary tracking-wider bg-primary/5 px-3 py-0.5 rounded-full">{assignment.course?.name}</span>
+                    <h3 className="text-lg sm:text-xl font-bold text-base-content tracking-tight group-hover:text-primary transition-colors pr-12">
                       {assignment.title}
                     </h3>
                   </div>
 
-                  <p className="text-base-content/70 font-medium leading-relaxed bg-base-200/50 p-6 rounded-2xl border border-base-300 italic">
+                  <p className="text-base-content/70 text-sm font-medium leading-relaxed bg-base-200/50 p-4 rounded-xl border border-base-300 italic">
                     "{assignment.description}"
                   </p>
 
-                  <div className="flex items-center gap-6">
-                    <div className="flex items-center gap-2 text-[10px] font-black text-base-content/40 uppercase tracking-widest">
-                      <FaCalendarAlt className="text-primary" />
+                  <div className="flex flex-wrap items-center gap-4">
+                    <div className="flex items-center gap-2 text-[10px] font-bold text-base-content/40 uppercase tracking-wider">
+                      <FaCalendarAlt className="text-primary" size={12} />
                       Due: {new Date(assignment.deadline).toLocaleDateString()}
-                    </div>
-                    <div className="flex items-center gap-2 text-[10px] font-black text-base-content/40 uppercase tracking-widest">
-                      <FaClock className="text-primary" />
-                      Sync: Local Node
                     </div>
                   </div>
                 </div>
 
-                <div className="mt-10">
+                <div className="mt-6">
                   {submission ? (
-                    <div className="flex flex-col gap-4">
-                      <div className="w-full h-1.5 bg-base-200 rounded-full overflow-hidden">
+                    <div className="flex flex-col gap-3">
+                      <div className="w-full h-1 bg-base-200 rounded-full overflow-hidden">
                         <div className="w-full h-full bg-emerald-500 animate-pulse"></div>
                       </div>
-                      <div className="flex items-center justify-between bg-emerald-500/5 p-6 rounded-2xl border-2 border-emerald-500/20">
-                        <div className="flex items-center gap-4">
-                          <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-600">
-                            <FaCheckCircle size={24} />
+                      <div className="flex items-center justify-between bg-emerald-500/5 p-4 rounded-xl border border-emerald-500/20">
+                        <div className="flex items-center gap-3">
+                          <div className="w-9 h-9 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-600">
+                            <FaCheckCircle size={18} />
                           </div>
                           <div>
-                            <p className="text-sm font-black text-base-content uppercase tracking-widest">Protocol Success</p>
-                            <p className="text-xs font-bold text-emerald-600 uppercase">
-                              {submission.marks ? `Validated Score: ${submission.marks}/100` : "Encryption Pending Review"}
+                            <p className="text-xs font-bold text-base-content uppercase tracking-wider">Submitted</p>
+                            <p className="text-[10px] font-medium text-emerald-600">
+                              {submission.marks ? `Score: ${submission.marks}/100` : "Pending Review"}
                             </p>
                           </div>
                         </div>
 
                         {submission.feedback && (
                           <div className="tooltip tooltip-left" data-tip={submission.feedback}>
-                            <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary cursor-help">
-                              <FaCommentDots />
+                            <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary cursor-help">
+                              <FaCommentDots size={14} />
                             </div>
                           </div>
                         )}
@@ -399,9 +393,9 @@ const Assignments = () => {
                   ) : (
                     <button
                       onClick={() => { setSelectedAssignment(assignment); setShowSubmitModal(true); }}
-                      className="btn btn-primary w-full rounded-2xl h-16 text-sm font-black uppercase tracking-[0.2em] shadow-xl shadow-primary/20 group active:scale-[0.98] transition-all"
+                      className="btn btn-primary w-full rounded-xl h-12 text-xs font-bold uppercase tracking-wider shadow-lg shadow-primary/20 active:scale-[0.98] transition-all"
                     >
-                      Process Submission <FaAngleRight className="group-hover:translate-x-2 transition-transform" />
+                      Submit <FaAngleRight className="group-hover:translate-x-1 transition-transform" />
                     </button>
                   )}
                 </div>
@@ -413,44 +407,44 @@ const Assignments = () => {
 
       {/* Submit Modal */}
       {showSubmitModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/80 backdrop-blur-xl animate-in fade-in duration-300">
-          <div className="max-w-2xl w-full bg-base-100 border border-base-300 rounded-[3rem] p-12 shadow-2xl animate-in zoom-in-95 relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-2 bg-primary"></div>
-            <div className="flex items-center justify-between mb-12">
-              <h3 className="text-3xl font-black text-base-content flex items-center gap-4 uppercase tracking-tighter">
-                <div className="w-12 h-12 bg-primary/20 rounded-2xl flex items-center justify-center text-primary">
-                  <FaFileUpload />
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xl animate-in fade-in duration-300">
+          <div className="max-w-lg w-full bg-base-100 border border-base-300 rounded-2xl p-6 sm:p-8 shadow-2xl animate-in zoom-in-95 relative overflow-hidden max-h-[90vh] overflow-y-auto">
+            <div className="absolute top-0 left-0 w-full h-1.5 bg-primary"></div>
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-lg sm:text-xl font-bold text-base-content flex items-center gap-3 uppercase tracking-tight">
+                <div className="w-9 h-9 bg-primary/20 rounded-xl flex items-center justify-center text-primary">
+                  <FaFileUpload size={14} />
                 </div>
-                Sync Solution
+                Submit Work
               </h3>
-              <button onClick={() => setShowSubmitModal(false)} className="btn btn-ghost btn-circle">✕</button>
+              <button onClick={() => setShowSubmitModal(false)} className="btn btn-ghost btn-circle btn-sm">✕</button>
             </div>
 
-            <div className="mb-10 p-6 bg-base-200 rounded-3xl border border-base-300">
-              <p className="text-[10px] font-black text-primary uppercase tracking-[0.3em] mb-1">Target Mission</p>
-              <p className="text-xl font-black text-base-content">{selectedAssignment?.title}</p>
+            <div className="mb-6 p-4 bg-base-200 rounded-xl border border-base-300">
+              <p className="text-[10px] font-bold text-primary uppercase tracking-wider mb-1">Assignment</p>
+              <p className="text-base font-bold text-base-content">{selectedAssignment?.title}</p>
             </div>
 
-            <form onSubmit={handleSubmitAssignment} className="space-y-8">
-              <div className="space-y-3">
-                <label className="text-[10px] font-black text-base-content/40 uppercase tracking-[0.3em] ml-2">Intel Data (Link/URL)</label>
-                <div className="relative group">
+            <form onSubmit={handleSubmitAssignment} className="space-y-4">
+              <div className="space-y-1.5">
+                <label className="text-[10px] font-bold text-base-content/40 uppercase tracking-wider ml-1">Link / URL</label>
+                <div className="relative">
                   <input
-                    className="input input-bordered w-full rounded-2xl h-16 font-black bg-base-200 border-none focus:ring-4 focus:ring-primary/10 transition-all pl-12"
-                    placeholder="Transmission Link (Google Drive / GitHub)..."
+                    className="input input-bordered w-full rounded-xl h-12 font-medium bg-base-200 border-none focus:ring-2 focus:ring-primary/10 transition-all pl-10 text-sm"
+                    placeholder="Google Drive / GitHub link..."
                     value={submissionForm.externalLink}
                     onChange={(e) => setSubmissionForm({ ...submissionForm, externalLink: e.target.value })}
                   />
-                  <FaLink className="absolute left-4 top-1/2 -translate-y-1/2 text-primary" />
+                  <FaLink className="absolute left-3 top-1/2 -translate-y-1/2 text-primary" size={14} />
                 </div>
               </div>
 
-              <div className="space-y-3">
-                <label className="text-[10px] font-black text-base-content/40 uppercase tracking-[0.3em] ml-2">Mission Report</label>
+              <div className="space-y-1.5">
+                <label className="text-[10px] font-bold text-base-content/40 uppercase tracking-wider ml-1">Description</label>
                 <textarea
                   required
-                  className="textarea textarea-bordered w-full rounded-[2rem] h-48 font-black bg-base-200 border-none focus:ring-4 focus:ring-primary/10 transition-all p-8 leading-relaxed"
-                  placeholder="Briefly describe your solution path..."
+                  className="textarea textarea-bordered w-full rounded-xl h-28 font-medium bg-base-200 border-none focus:ring-2 focus:ring-primary/10 transition-all p-4 leading-relaxed text-sm"
+                  placeholder="Briefly describe your solution..."
                   value={submissionForm.content}
                   onChange={(e) => setSubmissionForm({ ...submissionForm, content: e.target.value })}
                 />
@@ -459,9 +453,9 @@ const Assignments = () => {
               <button
                 type="submit"
                 disabled={submitting}
-                className="btn btn-primary w-full rounded-2xl h-20 text-lg font-black uppercase tracking-[0.2em] shadow-2xl shadow-primary/30 active:scale-[0.98] transition-all"
+                className="btn btn-primary w-full rounded-xl h-12 text-xs font-bold uppercase tracking-wider shadow-lg shadow-primary/20 active:scale-[0.98] transition-all"
               >
-                {submitting ? <FaSpinner className="animate-spin" /> : "Transmit to Faculty"}
+                {submitting ? <FaSpinner className="animate-spin" /> : "Submit"}
               </button>
             </form>
           </div>

@@ -12,7 +12,7 @@ import {
 } from "react-icons/fa";
 import { useAuth } from "../context/AuthContext";
 
-const Sidebar = () => {
+const Sidebar = ({ onNavigate }) => {
   const navigate = useNavigate();
   const { user, role } = useAuth();
 
@@ -42,45 +42,46 @@ const Sidebar = () => {
   const menuItems = role === "teacher" ? teacherMenu : studentMenu;
 
   return (
-    <aside className="w-64 bg-base-100 border-r border-base-300 flex flex-col h-screen sticky top-0">
-
-      <div className="p-6 flex items-center gap-3">
+    <aside className="w-64 bg-base-100 border-r border-base-300 flex flex-col h-full">
+      {/* Logo */}
+      <div className="p-5 flex items-center gap-3 border-b border-base-300">
         <div className="bg-primary p-2 rounded-lg">
-          <FaGraduationCap size={24} className="text-primary-content" />
+          <FaGraduationCap size={20} className="text-primary-content" />
         </div>
-        <h1 className="text-xl font-bold text-base-content">learnify</h1>
+        <h1 className="text-lg font-bold text-base-content">learnify</h1>
       </div>
 
-
-      <nav className="flex-1 mt-4 px-4 space-y-2">
+      {/* Nav Links */}
+      <nav className="flex-1 mt-3 px-3 space-y-1 overflow-y-auto">
         {menuItems.map((item) => {
           const Icon = item.icon;
           return (
             <NavLink
               key={item.name}
               to={item.path}
+              onClick={onNavigate}
               className={({ isActive }) => `
-                flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200
+                flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all duration-200 text-sm
                 ${isActive
                   ? "bg-primary text-primary-content shadow-md"
                   : "text-base-content/70 hover:bg-base-200 hover:text-base-content"
                 }
               `}
             >
-              <Icon size={20} />
+              <Icon size={16} />
               <span className="font-medium">{item.name}</span>
             </NavLink>
           );
         })}
       </nav>
 
-
-      <div className="p-4 border-t border-base-300">
+      {/* Logout */}
+      <div className="p-3 border-t border-base-300">
         <button
           onClick={handleLogout}
-          className="flex items-center gap-3 px-4 py-3 w-full rounded-xl text-error hover:bg-error/10 transition-all duration-200"
+          className="flex items-center gap-3 px-4 py-2.5 w-full rounded-xl text-error hover:bg-error/10 transition-all duration-200 text-sm"
         >
-          <FaSignOutAlt size={20} />
+          <FaSignOutAlt size={16} />
           <span className="font-medium">Logout</span>
         </button>
       </div>
