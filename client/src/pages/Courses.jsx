@@ -12,15 +12,25 @@ import {
     FiTrash2,
     FiBookOpen,
     FiSearch,
-    FiLayers
+    FiLayers,
+    FiUpload,
+    FiVideo,
+    FiImage,
+    FiX,
+    FiSave,
+    FiChevronDown,
+    FiChevronUp
 } from 'react-icons/fi';
 
 const Courses = () => {
     const [courses, setCourses] = useState([]);
     const [loading, setLoading] = useState(true);
     const [showCreateModal, setShowCreateModal] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
     const [submitting, setSubmitting] = useState(false);
+    const [uploading, setUploading] = useState(false);
     const [view, setView] = useState('my');
+    const [editingCourse, setEditingCourse] = useState(null);
 
     const [newCourse, setNewCourse] = useState({
         name: '',
@@ -57,6 +67,24 @@ const Courses = () => {
         }
     };
 
+    const handleFileUpload = async (file, type) => {
+        setUploading(true);
+        const formData = new FormData();
+        formData.append('file', file);
+        try {
+            const res = await api.post('/courses/upload', formData, {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            });
+            toast.success('Media uploaded to local hub');
+            return res.data.url;
+        } catch (err) {
+            toast.error('Upload failed');
+            return null;
+        } finally {
+            setUploading(false);
+        }
+    };
+
     const handleCreateCourse = async (e) => {
         e.preventDefault();
         setSubmitting(true);
@@ -76,6 +104,21 @@ const Courses = () => {
         } catch (err) {
             console.error(err);
             toast.error('Failed to launch course');
+        } finally {
+            setSubmitting(false);
+        }
+    };
+
+    const handleUpdateCourse = async (e) => {
+        e.preventDefault();
+        setSubmitting(true);
+        try {
+            await api.put(`/courses/${editingCourse._id}`, editingCourse);
+            toast.success('Course protocol updated!');
+            setShowEditModal(false);
+            fetchCourses();
+        } catch (err) {
+            toast.error('Modification failed');
         } finally {
             setSubmitting(false);
         }
@@ -176,7 +219,6 @@ const Courses = () => {
                         const progressVal = view === 'explore' ? 0 : (item?.progress || 0);
 
                         if (!courseObj?.name) {
-                            console.warn("Invalid course data found at index " + index, item);
                             return null;
                         }
 
@@ -188,6 +230,10 @@ const Courses = () => {
                                 isTeacher={role === 'teacher'}
                                 onMarkComplete={() => markAsComplete(courseObj?._id)}
                                 onEnroll={() => handleEnroll(courseObj?._id)}
+                                onEdit={() => {
+                                    setEditingCourse({ ...courseObj });
+                                    setShowEditModal(true);
+                                }}
                                 isExplore={view === 'explore'}
                             />
                         );
@@ -195,10 +241,11 @@ const Courses = () => {
                 )}
             </div>
 
+            {/* Create Modal */}
             {showCreateModal && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-md">
-                    <div className="bg-base-100 p-10 rounded-[2.5rem] w-full max-w-2xl border border-base-300 shadow-2xl animate-in zoom-in-95 duration-200">
-                        <div className="flex justify-between items-center mb-10">
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-md overflow-hidden">
+                    <div className="bg-base-100 p-10 rounded-[2.5rem] w-full max-w-2xl border border-base-300 shadow-2xl animate-in zoom-in-95 duration-200 max-h-[90vh] overflow-auto flex flex-col">
+                        <div className="flex justify-between items-center mb-10 sticky top-0 bg-base-100 z-10 py-2">
                             <h3 className="text-2xl font-black text-base-content flex items-center gap-3">
                                 <div className="w-12 h-12 bg-primary/20 rounded-2xl flex items-center justify-center text-primary">
                                     <FiBookOpen size={24} />
@@ -208,7 +255,7 @@ const Courses = () => {
                             <button onClick={() => setShowCreateModal(false)} className="btn btn-ghost btn-sm rounded-full">✕</button>
                         </div>
 
-                        <form onSubmit={handleCreateCourse} className="space-y-8">
+                        <form onSubmit={handleCreateCourse} className="space-y-8 flex-1">
                             <div className="space-y-3">
                                 <label className="text-[10px] font-black text-base-content/40 uppercase tracking-[0.2em] ml-2">COURSE TITLE</label>
                                 <input
@@ -231,10 +278,29 @@ const Courses = () => {
                                 />
                             </div>
 
+                            <div className="space-y-3">
+                                <label className="text-[10px] font-black text-base-content/40 uppercase tracking-[0.2em] ml-2">THUMBNAIL (URL or Local Path)</label>
+                                <div className="flex gap-4">
+                                    <input
+                                        className="input input-bordered flex-1 rounded-2xl h-14 font-bold bg-base-200 border-none focus:ring-2 focus:ring-primary/20"
+                                        placeholder="Paste image link or upload below..."
+                                        value={newCourse.thumbnail}
+                                        onChange={(e) => setNewCourse({ ...newCourse, thumbnail: e.target.value })}
+                                    />
+                                    <label className="btn btn-ghost bg-base-200 h-14 w-14 rounded-2xl flex items-center justify-center cursor-pointer">
+                                        <FiImage size={24} />
+                                        <input type="file" className="hidden" accept="image/*" onChange={async (e) => {
+                                            const url = await handleFileUpload(e.target.files[0], 'image');
+                                            if (url) setNewCourse({ ...newCourse, thumbnail: url });
+                                        }} />
+                                    </label>
+                                </div>
+                            </div>
+
                             <button
                                 type="submit"
-                                disabled={submitting}
-                                className="btn btn-primary w-full rounded-[1.5rem] h-16 text-lg font-black shadow-xl shadow-primary/20 group"
+                                disabled={submitting || uploading}
+                                className="btn btn-primary w-full rounded-[1.5rem] h-16 text-lg font-black shadow-xl shadow-primary/20 group mt-4"
                             >
                                 {submitting ? <FiLoader className="animate-spin" /> : (
                                     <>
@@ -244,6 +310,168 @@ const Courses = () => {
                                 )}
                             </button>
                         </form>
+                    </div>
+                </div>
+            )}
+
+            {/* Edit Modal */}
+            {showEditModal && editingCourse && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-md overflow-hidden">
+                    <div className="bg-base-100 p-10 rounded-[2.5rem] w-full max-w-4xl border border-base-300 shadow-2xl animate-in zoom-in-95 duration-200 max-h-[90vh] overflow-auto flex flex-col">
+                        <div className="flex justify-between items-center mb-10 sticky top-0 bg-base-100 z-10 py-2">
+                            <h3 className="text-2xl font-black text-base-content flex items-center gap-3">
+                                <div className="w-12 h-12 bg-emerald-500/20 rounded-2xl flex items-center justify-center text-emerald-600">
+                                    <FiEdit2 size={24} />
+                                </div>
+                                Modifying Curriculum
+                            </h3>
+                            <div className="flex gap-2">
+                                <button
+                                    onClick={handleUpdateCourse}
+                                    className="btn btn-primary rounded-2xl h-12 px-6 font-black gap-2 shadow-lg shadow-primary/20"
+                                    disabled={submitting || uploading}
+                                >
+                                    {submitting ? <FiLoader className="animate-spin" /> : <><FiSave /> Commit Changes</>}
+                                </button>
+                                <button onClick={() => setShowEditModal(false)} className="btn btn-ghost btn-sm rounded-full">✕</button>
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                            {/* Left: Metadata */}
+                            <div className="space-y-8">
+                                <div className="space-y-3">
+                                    <label className="text-[10px] font-black text-base-content/40 uppercase tracking-[0.2em] ml-2">ASSESSMENT TITLE</label>
+                                    <input
+                                        required
+                                        className="input input-bordered w-full rounded-2xl h-14 font-bold bg-base-200 border-none"
+                                        value={editingCourse.name}
+                                        onChange={(e) => setEditingCourse({ ...editingCourse, name: e.target.value })}
+                                    />
+                                </div>
+
+                                <div className="space-y-3">
+                                    <label className="text-[10px] font-black text-base-content/40 uppercase tracking-[0.2em] ml-2">CORE DESCRIPTION</label>
+                                    <textarea
+                                        required
+                                        className="textarea textarea-bordered w-full h-32 rounded-2xl font-bold bg-base-200 border-none"
+                                        value={editingCourse.description}
+                                        onChange={(e) => setEditingCourse({ ...editingCourse, description: e.target.value })}
+                                    />
+                                </div>
+
+                                <div className="space-y-3">
+                                    <label className="text-[10px] font-black text-base-content/40 uppercase tracking-[0.2em] ml-2">CURRICULUM THUMBNAIL</label>
+                                    <div className="relative group">
+                                        <div className="w-full h-40 bg-base-200 rounded-[2rem] border-2 border-dashed border-base-300 overflow-hidden flex items-center justify-center relative">
+                                            {editingCourse.thumbnail ? (
+                                                <img src={editingCourse.thumbnail.startsWith('/') ? `${api.defaults.baseURL.replace('/api', '')}${editingCourse.thumbnail}` : editingCourse.thumbnail} className="w-full h-full object-cover" />
+                                            ) : (
+                                                <FiImage size={40} className="text-base-content/10" />
+                                            )}
+                                            <label className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
+                                                <FiUpload className="text-white" size={32} />
+                                                <input type="file" className="hidden" accept="image/*" onChange={async (e) => {
+                                                    const url = await handleFileUpload(e.target.files[0], 'image');
+                                                    if (url) setEditingCourse({ ...editingCourse, thumbnail: url });
+                                                }} />
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Right: Modules & Content */}
+                            <div className="space-y-6">
+                                <label className="text-[10px] font-black text-base-content/40 uppercase tracking-[0.2em] ml-2">MODULE HIERARCHY & MEDIA</label>
+                                <div className="space-y-4">
+                                    {editingCourse.modules.map((module, modIndex) => (
+                                        <div key={modIndex} className="bg-base-200 rounded-3xl p-6 border border-base-300 space-y-4">
+                                            <div className="flex gap-2">
+                                                <input
+                                                    className="bg-transparent border-none text-lg font-black w-full"
+                                                    value={module.name}
+                                                    onChange={(e) => {
+                                                        const m = [...editingCourse.modules];
+                                                        m[modIndex].name = e.target.value;
+                                                        setEditingCourse({ ...editingCourse, modules: m });
+                                                    }}
+                                                />
+                                                <button onClick={() => {
+                                                    const m = editingCourse.modules.filter((_, i) => i !== modIndex);
+                                                    setEditingCourse({ ...editingCourse, modules: m });
+                                                }} className="text-error"><FiX /></button>
+                                            </div>
+
+                                            <div className="space-y-3">
+                                                {module.lessons.map((lesson, lessonIndex) => (
+                                                    <div key={lessonIndex} className="bg-base-100 p-4 rounded-2xl border border-base-300 space-y-3">
+                                                        <div className="flex gap-2 items-center">
+                                                            <span className="text-[10px] font-black text-primary bg-primary/10 px-2 py-1 rounded">L{lessonIndex + 1}</span>
+                                                            <input
+                                                                className="bg-transparent border-none font-bold text-sm w-full"
+                                                                value={lesson.title}
+                                                                onChange={(e) => {
+                                                                    const m = [...editingCourse.modules];
+                                                                    m[modIndex].lessons[lessonIndex].title = e.target.value;
+                                                                    setEditingCourse({ ...editingCourse, modules: m });
+                                                                }}
+                                                            />
+                                                            <button className="text-error" onClick={() => {
+                                                                const m = [...editingCourse.modules];
+                                                                m[modIndex].lessons = m[modIndex].lessons.filter((_, i) => i !== lessonIndex);
+                                                                setEditingCourse({ ...editingCourse, modules: m });
+                                                            }}><FiX size={14} /></button>
+                                                        </div>
+
+                                                        <div className="flex items-center gap-2">
+                                                            <div className="flex-1 bg-base-200 px-4 py-2 rounded-xl flex items-center justify-between text-xs font-black">
+                                                                <span className="opacity-40 truncate">{lesson.videoUrl || 'No Content Attached'}</span>
+                                                                {lesson.videoUrl && <FiVideo className="text-primary shrink-0 ml-2" />}
+                                                            </div>
+                                                            <label className="btn btn-primary btn-sm rounded-xl h-10 w-10 p-0 flex items-center justify-center cursor-pointer">
+                                                                <FiVideo size={16} />
+                                                                <input type="file" className="hidden" accept="video/*" onChange={async (e) => {
+                                                                    const url = await handleFileUpload(e.target.files[0], 'video');
+                                                                    if (url) {
+                                                                        const m = [...editingCourse.modules];
+                                                                        m[modIndex].lessons[lessonIndex].videoUrl = url;
+                                                                        setEditingCourse({ ...editingCourse, modules: m });
+                                                                    }
+                                                                }} />
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                                <button
+                                                    type="button"
+                                                    onClick={() => {
+                                                        const m = [...editingCourse.modules];
+                                                        m[modIndex].lessons.push({ id: `l${Date.now()}`, title: 'New Lesson', videoUrl: '', difficulty: 'Easy' });
+                                                        setEditingCourse({ ...editingCourse, modules: m });
+                                                    }}
+                                                    className="w-full h-10 rounded-xl border-2 border-dashed border-base-300 flex items-center justify-center gap-2 text-xs font-black opacity-30 hover:opacity-100 transition-opacity"
+                                                >
+                                                    <FiPlus /> Add Transmission
+                                                </button>
+                                            </div>
+                                        </div>
+                                    ))}
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            setEditingCourse({
+                                                ...editingCourse,
+                                                modules: [...editingCourse.modules, { name: 'Core Module', lessons: [] }]
+                                            });
+                                        }}
+                                        className="w-full h-14 rounded-3xl border-2 border-dashed border-primary/20 flex items-center justify-center gap-2 text-sm font-black text-primary/40 hover:text-primary hover:bg-primary/5 transition-all"
+                                    >
+                                        <FiPlus /> New Cluster
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             )}
@@ -257,21 +485,31 @@ const CourseCard = ({
     isTeacher,
     onMarkComplete,
     onEnroll,
+    onEdit,
     isExplore
 }) => (
     <div className="bg-base-100 rounded-[2rem] overflow-hidden border border-base-300 flex flex-col hover:border-primary transition-all duration-300 shadow-sm hover:shadow-2xl group relative">
-        <div className="p-8 flex-1 flex flex-col">
-            <div className="flex justify-between items-start mb-6">
-                <div className="w-12 h-12 bg-primary/10 text-primary rounded-2xl flex items-center justify-center font-black">
+        <div className="h-48 overflow-hidden relative">
+            <img
+                src={course?.thumbnail ? (course.thumbnail.startsWith('/') ? `http://localhost:5000${course.thumbnail}` : course.thumbnail) : 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800'}
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt={course.name}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+            <div className="absolute top-4 left-4">
+                <div className="w-10 h-10 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center font-black text-white border border-white/20">
                     {course?.name?.charAt(0) || '?'}
                 </div>
-                {isExplore && (
-                    <span className="bg-emerald-500/10 text-emerald-600 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest border border-emerald-500/20">
+            </div>
+            {isExplore && (
+                <div className="absolute top-4 right-4 animate-in slide-in-from-right-4">
+                    <span className="bg-emerald-500 text-white text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest shadow-lg shadow-emerald-500/20">
                         Available
                     </span>
-                )}
-            </div>
+                </div>
+            )}
+        </div>
 
+        <div className="p-8 flex-1 flex flex-col">
             <h3 className="text-xl font-black text-base-content mb-3 group-hover:text-primary transition-colors leading-tight">
                 {course?.name || 'Untitled Course'}
             </h3>
@@ -298,8 +536,11 @@ const CourseCard = ({
             <div className="flex gap-3 mt-auto pt-6 border-t border-base-300">
                 {isTeacher ? (
                     <>
-                        <button className="flex-1 btn btn-ghost bg-base-200 hover:bg-base-300 rounded-2xl flex items-center justify-center gap-2 text-base-content border-none font-black h-12">
-                            <FiEdit2 size={18} /> Edit
+                        <button
+                            onClick={onEdit}
+                            className="flex-1 btn btn-ghost bg-base-200 hover:bg-base-300 rounded-2xl flex items-center justify-center gap-2 text-base-content border-none font-black h-12"
+                        >
+                            <FiEdit2 size={18} /> Modify
                         </button>
                         <button className="btn btn-ghost w-12 h-12 flex items-center justify-center text-error hover:bg-error/10 rounded-2xl border-none transition-colors">
                             <FiTrash2 size={20} />
