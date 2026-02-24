@@ -9,8 +9,8 @@ import User from '../models/UserModel.js';
 //   GET /api/courses
 export const getCourses = async (req, res, next) => {
     try {
-        // If student wants to explore available courses
-        if (req.user.role === 'student' && req.query.type === 'all') {
+        // If user wants to explore all available courses
+        if (req.query.type === 'all') {
             const allCourses = await Course.find({}).populate('instructor', 'fullName');
             return res.json(allCourses);
         }
