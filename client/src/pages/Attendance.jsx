@@ -42,7 +42,6 @@ const Attendance = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-
                 <div className="glass p-8 rounded-3xl border border-slate-800 flex items-center gap-6">
                     <div className="w-16 h-16 bg-primary-500/10 text-primary-500 rounded-2xl flex items-center justify-center">
                         <FiTrendingUp size={32} />
@@ -56,7 +55,6 @@ const Attendance = () => {
                         </h3>
                     </div>
                 </div>
-
 
                 <div className="glass p-8 rounded-3xl border border-slate-800 flex items-center gap-6">
                     <div className="w-16 h-16 bg-emerald-500/10 text-emerald-500 rounded-2xl flex items-center justify-center">
@@ -72,7 +70,6 @@ const Attendance = () => {
                     </div>
                 </div>
 
-
                 <div className="glass p-8 rounded-3xl border border-slate-800 flex items-center gap-6">
                     <div className="w-16 h-16 bg-red-500/10 text-red-500 rounded-2xl flex items-center justify-center">
                         <FiXCircle size={32} />
@@ -87,7 +84,6 @@ const Attendance = () => {
                     </div>
                 </div>
             </div>
-
 
             <div className="glass rounded-3xl border border-slate-800 overflow-hidden">
                 <div className="p-6 border-b border-slate-800 bg-slate-900/30 flex items-center justify-between">

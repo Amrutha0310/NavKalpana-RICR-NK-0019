@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import api from "../config/Api";
 import {
@@ -48,7 +47,6 @@ const Assignments = () => {
 
   const getStudentSubmission = (assignmentId) =>
     submissions.find((s) => s.assignment?._id === assignmentId);
-
 
   if (loading) {
     return (

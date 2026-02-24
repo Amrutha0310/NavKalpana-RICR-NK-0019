@@ -72,32 +72,9 @@ const Navbar = () => {
             <h1 className="text-xl font-bold tracking-tight">learnify</h1>
             <p className="text-[10px] uppercase font-medium text-base-content/50 tracking-widest">Portal</p>
           </div>
-        </div>
+         </div> 
 
-        {/* MIDDLE - Desktop Links */}
-        <ul className="hidden md:flex items-center gap-1">
-          <NavLink to="/home" className={linkClass}>
-            <FaHome /> Home
-          </NavLink>
-          <NavLink to="/courses" className={linkClass}>
-            <FaBookOpen /> Courses
-          </NavLink>
-          <NavLink to="/quizzes" className={linkClass}>
-            Quizzes
-          </NavLink>
-          <NavLink to="/assignments" className={linkClass}>
-            Assignments
-          </NavLink>
-          {user && (
-            <NavLink
-              to={user.role === 'teacher' ? "/teacher-dashboard" : "/student-dashboard"}
-              className={linkClass}
-            >
-              <FaUserCog /> Dashboard
-            </NavLink>
-          )}
-        </ul>
-
+      
         {/* RIGHT */}
         <div className="flex items-center gap-4">
           <select
@@ -129,6 +106,12 @@ const Navbar = () => {
                 className="btn btn-primary btn-sm px-8 rounded-full font-bold text-xs shadow-lg shadow-primary/20"
               >
                 LOGIN
+              </button>
+              <button
+                onClick={() => navigate("/register")}
+                className="btn btn-primary btn-sm px-8 rounded-full font-bold text-xs shadow-lg shadow-primary/20"
+              >
+                REGISTER
               </button>
             </div>
           )}

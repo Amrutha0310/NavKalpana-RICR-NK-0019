@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import api from "../../config/Api";
+
 import {
   FaTrophy,
   FaFire,
@@ -95,7 +96,7 @@ const StudentsDashboard = () => {
         </div>
       </div>
 
-      {/* Stats Cards */}
+  
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard
           title="Academic Score"
@@ -153,7 +154,6 @@ const StudentsDashboard = () => {
             </ResponsiveContainer>
           </div>
         </div>
-
 
         <div className="glass p-6 rounded-3xl border border-slate-800">
           <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">

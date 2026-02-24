@@ -24,7 +24,7 @@ const userSchema = mongoose.Schema(
       {
         course: {
           type: mongoose.Schema.Types.ObjectId,
-          ref: "course",
+          ref: "Course",
         },
         progress: {
           type: Number,
