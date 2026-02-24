@@ -96,7 +96,7 @@ const StudentsDashboard = () => {
         </div>
       </div>
 
-  
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard
           title="Academic Score"
@@ -155,9 +155,9 @@ const StudentsDashboard = () => {
           </div>
         </div>
 
-        <div className="glass p-6 rounded-3xl border border-slate-800">
-          <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-            <FaCalendarAlt className="text-primary-500" />
+        <div className="bg-base-100 p-6 rounded-3xl border border-base-300 shadow-sm">
+          <h3 className="text-xl font-bold text-base-content mb-4 flex items-center gap-2">
+            <FaCalendarAlt className="text-primary" />
             Upcoming Events
           </h3>
 
