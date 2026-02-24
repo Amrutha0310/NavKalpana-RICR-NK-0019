@@ -83,6 +83,10 @@ const Quizzes = () => {
   const handleCreateQuiz = async (e) => {
     e.preventDefault();
 
+    if (!newQuiz.courseId) {
+      return toast.error("Please select a course for this quiz");
+    }
+
     // Validation
     const invalidQ = newQuiz.questions.find(q => !q.question || q.options.some(o => !o));
     if (invalidQ) return toast.error("Please fill all questions and options");
@@ -413,8 +417,8 @@ const Quizzes = () => {
                                   type="button"
                                   onClick={() => toggleCorrectOption(qIndex, oIndex)}
                                   className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all ${q.correctAnswers.includes(oIndex)
-                                      ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/30'
-                                      : 'bg-base-100 text-base-content/20'
+                                    ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/30'
+                                    : 'bg-base-100 text-base-content/20'
                                     }`}
                                 >
                                   {q.correctAnswers.includes(oIndex) ? <FiCheckCircle size={24} /> : <FiCircle size={24} />}

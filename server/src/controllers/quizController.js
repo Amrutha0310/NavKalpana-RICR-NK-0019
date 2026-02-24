@@ -28,15 +28,18 @@ export const getQuizzes = async (req, res, next) => {
 export const createQuiz = async (req, res, next) => {
     try {
         const { courseId, title, duration, questions } = req.body;
+        console.log("Creating Quiz with data:", { courseId, title, duration, questionsCount: questions?.length });
+
         const quiz = await Quiz.create({
             course: courseId,
             title,
-            duration,
+            duration: Number(duration),
             questions,
-            createdBy: req.user._id
+            createdBy: req.user?._id
         });
         res.status(201).json(quiz);
     } catch (error) {
+        console.error("CREATE QUIZ ERROR:", error);
         next(error);
     }
 };
