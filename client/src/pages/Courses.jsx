@@ -121,8 +121,8 @@ const Courses = () => {
                     <button
                         onClick={() => setView('my')}
                         className={`px-6 py-2.5 rounded-xl font-bold transition-all flex items-center gap-2 ${view === 'my'
-                                ? 'bg-primary text-primary-content shadow-lg shadow-primary/20'
-                                : 'text-base-content/60 hover:bg-base-200'
+                            ? 'bg-primary text-primary-content shadow-lg shadow-primary/20'
+                            : 'text-base-content/60 hover:bg-base-200'
                             }`}
                     >
                         <FiLayers /> {role === 'teacher' ? 'My Created' : 'My Courses'}
@@ -130,8 +130,8 @@ const Courses = () => {
                     <button
                         onClick={() => setView('explore')}
                         className={`px-6 py-2.5 rounded-xl font-bold transition-all flex items-center gap-2 ${view === 'explore'
-                                ? 'bg-primary text-primary-content shadow-lg shadow-primary/20'
-                                : 'text-base-content/60 hover:bg-base-200'
+                            ? 'bg-primary text-primary-content shadow-lg shadow-primary/20'
+                            : 'text-base-content/60 hover:bg-base-200'
                             }`}
                     >
                         <FiSearch /> Explore All
@@ -171,18 +171,23 @@ const Courses = () => {
                         )}
                     </div>
                 ) : (
-                    courses.map((item) => {
-                        const courseObj = view === 'explore' ? item : item.course;
-                        const progressVal = view === 'explore' ? 0 : item.progress;
+                    courses.filter(item => (view === 'explore' ? item : item?.course)).map((item, index) => {
+                        const courseObj = view === 'explore' ? item : item?.course;
+                        const progressVal = view === 'explore' ? 0 : (item?.progress || 0);
+
+                        if (!courseObj?.name) {
+                            console.warn("Invalid course data found at index " + index, item);
+                            return null;
+                        }
 
                         return (
                             <CourseCard
-                                key={courseObj._id}
+                                key={item?._id || courseObj?._id || index}
                                 course={courseObj}
                                 progress={progressVal}
                                 isTeacher={role === 'teacher'}
-                                onMarkComplete={() => markAsComplete(courseObj._id)}
-                                onEnroll={() => handleEnroll(courseObj._id)}
+                                onMarkComplete={() => markAsComplete(courseObj?._id)}
+                                onEnroll={() => handleEnroll(courseObj?._id)}
                                 isExplore={view === 'explore'}
                             />
                         );
@@ -258,7 +263,7 @@ const CourseCard = ({
         <div className="p-8 flex-1 flex flex-col">
             <div className="flex justify-between items-start mb-6">
                 <div className="w-12 h-12 bg-primary/10 text-primary rounded-2xl flex items-center justify-center font-black">
-                    {course.name.charAt(0)}
+                    {course?.name?.charAt(0) || '?'}
                 </div>
                 {isExplore && (
                     <span className="bg-emerald-500/10 text-emerald-600 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest border border-emerald-500/20">
@@ -268,10 +273,10 @@ const CourseCard = ({
             </div>
 
             <h3 className="text-xl font-black text-base-content mb-3 group-hover:text-primary transition-colors leading-tight">
-                {course.name}
+                {course?.name || 'Untitled Course'}
             </h3>
             <p className="text-base-content/60 text-sm mb-8 line-clamp-3 leading-relaxed font-medium">
-                {course.description}
+                {course?.description || 'No description available.'}
             </p>
 
             {!isTeacher && !isExplore && (
@@ -319,8 +324,8 @@ const CourseCard = ({
                         <button
                             onClick={onMarkComplete}
                             className={`btn btn-ghost w-14 h-14 flex items-center justify-center rounded-2xl border-none transition-all ${progress === 100
-                                    ? 'text-emerald-500 bg-emerald-500/10 shadow-inner'
-                                    : 'text-base-content/20 bg-base-200 hover:text-emerald-500'
+                                ? 'text-emerald-500 bg-emerald-500/10 shadow-inner'
+                                : 'text-base-content/20 bg-base-200 hover:text-emerald-500'
                                 }`}
                         >
                             <FiCheckCircle size={24} />
