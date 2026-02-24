@@ -27,6 +27,7 @@ const TeacherDashboard = () => {
     const fetchStats = async () => {
       try {
         const { data } = await api.get('/user/teacher-dashboard');
+        console.log("API DATA:", data);
 
         setStats({
           totalStudents: data.totalStudents,
