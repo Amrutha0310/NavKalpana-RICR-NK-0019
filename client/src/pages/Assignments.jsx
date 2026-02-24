@@ -51,83 +51,85 @@ const Assignments = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-[60vh]">
-        <FaSpinner className="animate-spin text-primary-500 text-5xl" />
+        <FaSpinner className="animate-spin text-primary text-5xl" />
       </div>
     );
   }
 
   if (role === "teacher") {
     return (
-      <div className="space-y-6 animate-in slide-in-from-right-4 duration-700">
-        <h2 className="text-3xl font-bold text-white">Student Submissions</h2>
+      <div className="p-6 space-y-6 animate-in slide-in-from-right-4 duration-700">
+        <h2 className="text-3xl font-bold text-base-content">Student Submissions</h2>
 
-        <div className="glass rounded-3xl border border-slate-800 overflow-hidden">
-          <table className="w-full text-left">
-            <thead className="bg-slate-900/60 text-slate-400 text-xs uppercase">
-              <tr>
-                <th className="px-6 py-4">Student</th>
-                <th className="px-6 py-4">Assignment</th>
-                <th className="px-6 py-4">Submitted</th>
-                <th className="px-6 py-4">Status</th>
-                <th className="px-6 py-4">Marks</th>
-              </tr>
-            </thead>
-
-            <tbody className="divide-y divide-slate-800/50">
-              {submissions.length === 0 ? (
+        <div className="bg-base-100 shadow-sm rounded-3xl border border-base-300 overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left">
+              <thead className="bg-base-200 text-base-content/60 text-xs font-bold uppercase tracking-wider">
                 <tr>
-                  <td colSpan="5" className="py-20 text-center">
-                    <div className="flex flex-col items-center">
-                      <FaUser className="text-slate-700 opacity-20 mb-4" size={48} />
-                      <p className="text-slate-500 italic">No submissions found yet.</p>
-                    </div>
-                  </td>
+                  <th className="px-6 py-4">Student</th>
+                  <th className="px-6 py-4">Assignment</th>
+                  <th className="px-6 py-4">Submitted</th>
+                  <th className="px-6 py-4">Status</th>
+                  <th className="px-6 py-4">Marks</th>
                 </tr>
-              ) : (
-                submissions.map((sub) => (
-                  <tr key={sub._id} className="hover:bg-slate-800/40">
-                    <td className="px-6 py-4 flex gap-3 items-center">
-                      <div className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center">
-                        <FaUser />
+              </thead>
+
+              <tbody className="divide-y divide-base-200">
+                {submissions.length === 0 ? (
+                  <tr>
+                    <td colSpan="5" className="py-20 text-center">
+                      <div className="flex flex-col items-center">
+                        <FaUser className="text-base-content/10 mb-4" size={48} />
+                        <p className="text-base-content/40 italic font-medium">No submissions found yet.</p>
                       </div>
-                      <div>
-                        <p className="text-white font-semibold">
-                          {sub.student.fullName}
-                        </p>
-                        <p className="text-xs text-slate-500">
-                          {sub.student.email}
-                        </p>
-                      </div>
-                    </td>
-
-                    <td className="px-6 py-4 text-slate-300">
-                      {sub.assignment.title}
-                    </td>
-
-                    <td className="px-6 py-4 text-slate-400 text-xs flex gap-2 items-center">
-                      <FaClock />
-                      {new Date(sub.createdAt).toLocaleString()}
-                    </td>
-
-                    <td className="px-6 py-4">
-                      <span
-                        className={`px-2 py-1 rounded-full text-xs font-bold ${sub.status === "Evaluated"
-                          ? "bg-emerald-500/10 text-emerald-400"
-                          : "bg-orange-500/10 text-orange-400"
-                          }`}
-                      >
-                        {sub.status}
-                      </span>
-                    </td>
-
-                    <td className="px-6 py-4 font-bold text-primary-400">
-                      {sub.marks ? `${sub.marks}/100` : "--"}
                     </td>
                   </tr>
-                ))
-              )}
-            </tbody>
-          </table>
+                ) : (
+                  submissions.map((sub) => (
+                    <tr key={sub._id} className="hover:bg-base-200/50 transition-colors">
+                      <td className="px-6 py-4 flex gap-3 items-center">
+                        <div className="w-8 h-8 rounded-full bg-base-200 flex items-center justify-center text-primary">
+                          <FaUser size={14} />
+                        </div>
+                        <div>
+                          <p className="text-base-content font-bold">
+                            {sub.student.fullName}
+                          </p>
+                          <p className="text-xs text-base-content/50 font-medium">
+                            {sub.student.email}
+                          </p>
+                        </div>
+                      </td>
+
+                      <td className="px-6 py-4 text-base-content/80 font-medium">
+                        {sub.assignment.title}
+                      </td>
+
+                      <td className="px-6 py-4 text-base-content/60 text-xs flex gap-2 items-center font-mono">
+                        <FaClock className="text-primary/50" />
+                        {new Date(sub.createdAt).toLocaleString()}
+                      </td>
+
+                      <td className="px-6 py-4">
+                        <span
+                          className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${sub.status === "Evaluated"
+                            ? "bg-emerald-500/10 text-emerald-600 border border-emerald-500/20"
+                            : "bg-orange-500/10 text-orange-600 border border-orange-500/20"
+                            }`}
+                        >
+                          {sub.status}
+                        </span>
+                      </td>
+
+                      <td className="px-6 py-4 font-black text-primary">
+                        {sub.marks ? `${sub.marks}/100` : "--"}
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     );
@@ -136,14 +138,14 @@ const Assignments = () => {
 
   return (
     <div className="p-6 space-y-6 animate-in slide-in-from-right-4 duration-700">
-      <h2 className="text-3xl font-bold text-white">Assignments</h2>
+      <h2 className="text-3xl font-bold text-base-content">Assignments</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {assignments.length === 0 ? (
-          <div className="col-span-full py-20 text-center glass rounded-3xl border-2 border-dashed border-slate-800">
-            <FaCalendarAlt className="mx-auto mb-4 text-slate-700 opacity-20" size={64} />
-            <p className="text-xl font-medium uppercase tracking-widest text-base-content/30 italic">No assignments available</p>
-            <p className="text-sm text-slate-500 mt-2">You're all caught up!</p>
+          <div className="col-span-full py-20 text-center bg-base-100 rounded-3xl border-2 border-dashed border-base-300 shadow-sm font-medium italic">
+            <FaCalendarAlt className="mx-auto mb-4 text-base-content/10" size={64} />
+            <p className="text-xl tracking-widest text-base-content/30 italic">No assignments available</p>
+            <p className="text-sm text-base-content/50 mt-2">You're all caught up!</p>
           </div>
         ) : (
           assignments.map((assignment) => {
@@ -152,26 +154,26 @@ const Assignments = () => {
             return (
               <div
                 key={assignment._id}
-                className="glass p-6 rounded-3xl border border-slate-800"
+                className="bg-base-100 p-8 rounded-3xl border border-base-300 shadow-sm hover:shadow-xl transition-all duration-300 group hover:border-primary/50"
               >
-                <h3 className="text-xl font-bold text-white">
+                <h3 className="text-xl font-bold text-base-content group-hover:text-primary transition-colors">
                   {assignment.title}
                 </h3>
 
-                <p className="text-slate-400 text-sm mt-2">
+                <p className="text-base-content/60 text-sm mt-3 leading-relaxed">
                   {assignment.description}
                 </p>
 
-                <div className="flex items-center gap-2 text-slate-500 text-sm mt-4">
-                  <FaCalendarAlt />
-                  {new Date(assignment.deadline).toLocaleDateString()}
+                <div className="flex items-center gap-2 text-base-content/40 text-sm mt-5 font-bold uppercase tracking-wider">
+                  <FaCalendarAlt className="text-primary" />
+                  Due: {new Date(assignment.deadline).toLocaleDateString()}
                 </div>
 
                 {submission ? (
-                  <div className="mt-5 flex items-center justify-between bg-slate-900/60 p-4 rounded-xl">
+                  <div className="mt-6 flex items-center justify-between bg-base-200/50 p-4 rounded-2xl border border-base-300">
                     <div className="flex items-center gap-3">
-                      <FaCheckCircle className="text-emerald-500" />
-                      <span className="text-white font-semibold">
+                      <FaCheckCircle className="text-emerald-500 text-xl" />
+                      <span className="text-base-content font-bold">
                         {submission.marks
                           ? `Score: ${submission.marks}/100`
                           : "Submitted • Awaiting Review"}
@@ -179,11 +181,13 @@ const Assignments = () => {
                     </div>
 
                     {submission.feedback && (
-                      <FaCommentDots className="text-slate-500" />
+                      <div className="tooltip tooltip-left" data-tip="Has Feedback">
+                        <FaCommentDots className="text-primary cursor-help" />
+                      </div>
                     )}
                   </div>
                 ) : (
-                  <button className="mt-6 w-full bg-primary-600 hover:bg-primary-500 text-white font-bold py-3 rounded-xl transition">
+                  <button className="btn btn-primary mt-8 w-full rounded-2xl h-14 text-lg font-bold shadow-lg shadow-primary/20">
                     Submit Assignment
                   </button>
                 )}

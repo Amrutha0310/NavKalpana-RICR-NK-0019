@@ -102,8 +102,8 @@ const Quizzes = () => {
 
   if (loading)
     return (
-      <div className="flex items-center justify-center h-full">
-        <FiLoader className="text-primary-500 animate-spin" size={48} />
+      <div className="flex items-center justify-center min-h-[400px]">
+        <FiLoader className="text-primary animate-spin" size={48} />
       </div>
     );
 
@@ -111,10 +111,10 @@ const Quizzes = () => {
     <div className="p-6 space-y-8 animate-in slide-in-from-bottom-4 duration-700">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-3xl font-bold text-white">
+          <h2 className="text-3xl font-bold text-base-content">
             {role === "teacher" ? "Quiz Management" : "Interactive Quizzes"}
           </h2>
-          <p className="text-slate-400 mt-1">
+          <p className="text-base-content/60 mt-1 font-medium">
             {role === "teacher"
               ? "Create and publish assessments for students."
               : "Test your knowledge and earn points."}
@@ -124,95 +124,104 @@ const Quizzes = () => {
         {role === "teacher" && (
           <button
             onClick={() => setShowCreateModal(true)}
-            className="bg-primary-600 hover:bg-primary-500 text-white font-bold py-3 px-6 rounded-2xl flex items-center gap-2 shadow-lg transition-all active:scale-95"
+            className="btn btn-primary rounded-2xl flex items-center gap-2 shadow-lg shadow-primary/20 h-12"
           >
             <FiPlus size={20} /> Create Quiz
           </button>
         )}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {quizzes.map((quiz) => (
           <div
             key={quiz._id}
-            className="glass p-6 rounded-3xl border border-slate-800 flex flex-col group hover:border-primary-500/30 transition-all"
+            className="bg-base-100 p-7 rounded-[2rem] border border-base-300 flex flex-col group hover:border-primary transition-all duration-300 shadow-sm hover:shadow-xl"
           >
             <div className="flex items-center justify-between mb-6">
-              <div className="p-3 bg-primary-500/10 text-primary-400 rounded-2xl group-hover:scale-110 transition-transform">
-                <FiCpu size={24} />
+              <div className="p-4 bg-primary/10 text-primary rounded-2xl group-hover:scale-110 transition-transform shadow-inner">
+                <FiCpu size={28} />
               </div>
-              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+              <span className="text-[10px] font-black text-base-content/40 uppercase tracking-[0.2em] bg-base-200 px-3 py-1 rounded-full">
                 {quiz.course?.name || "No Course"}
               </span>
             </div>
 
-            <h3 className="text-xl font-bold text-white mb-2">{quiz.title}</h3>
+            <h3 className="text-xl font-bold text-base-content mb-2 group-hover:text-primary transition-colors leading-tight">
+              {quiz.title}
+            </h3>
 
-            <div className="flex items-center gap-4 text-sm text-slate-400 mb-8">
-              <div className="flex items-center gap-1">
-                <FiClock size={14} />
-                <span>{quiz.duration} mins</span>
+            <div className="flex items-center gap-5 text-sm text-base-content/50 mb-10 font-bold uppercase tracking-wider">
+              <div className="flex items-center gap-1.5">
+                <FiClock className="text-primary" />
+                <span>{quiz.duration}m</span>
               </div>
-              <div className="flex items-center gap-1">
-                <FiHelpCircle size={14} />
-                <span>{quiz.totalQuestions} Questions</span>
+              <div className="flex items-center gap-1.5">
+                <FiHelpCircle className="text-primary" />
+                <span>{quiz.totalQuestions} Qs</span>
               </div>
             </div>
 
-            {role === "teacher" ? (
-              <div className="flex gap-3">
-                <button className="flex-1 bg-slate-900 border border-slate-700 hover:border-primary-500 text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 transition-all">
-                  <FiEdit3 size={18} /> Edit
-                </button>
-                <button className="w-12 h-12 text-red-400 hover:bg-red-500/10 flex items-center justify-center rounded-xl transition-all">
-                  <FiTrash2 size={20} />
-                </button>
-              </div>
-            ) : (
-              <Link
-                to={`/quiz/${quiz._id}`}
-                className="w-full bg-slate-900 border border-slate-700 hover:border-primary-500 hover:bg-primary-500/10 text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 transition-all"
-              >
-                Start Quiz
-                <FiArrowRight size={18} />
-              </Link>
-            )}
+            <div className="mt-auto">
+              {role === "teacher" ? (
+                <div className="flex gap-3">
+                  <button className="flex-1 btn btn-ghost bg-base-200 hover:bg-base-300 rounded-2xl text-base-content border-none h-12 font-bold">
+                    <FiEdit3 size={18} /> Edit
+                  </button>
+                  <button className="btn btn-ghost w-12 h-12 text-error hover:bg-error/10 flex items-center justify-center rounded-2xl border-none transition-all">
+                    <FiTrash2 size={20} />
+                  </button>
+                </div>
+              ) : (
+                <Link
+                  to={`/quiz/${quiz._id}`}
+                  className="btn btn-primary w-full rounded-2xl flex items-center justify-center gap-2 h-12 font-black shadow-md shadow-primary/10"
+                >
+                  Start Quiz
+                  <FiArrowRight size={18} />
+                </Link>
+              )}
+            </div>
           </div>
         ))}
 
         {quizzes.length === 0 && (
-          <div className="col-span-full py-20 text-center glass rounded-3xl border-dashed border-slate-800">
+          <div className="col-span-full py-24 text-center bg-base-100 rounded-[2.5rem] border-2 border-dashed border-base-300">
             <FiCircle
-              className="mx-auto mb-4 text-slate-700 animate-spin"
-              size={48}
+              className="mx-auto mb-6 text-base-content/10 animate-pulse"
+              size={64}
             />
-            <p className="text-slate-500 italic">No quizzes available.</p>
+            <p className="text-base-content/30 italic text-xl font-medium">No quizzes available at the moment.</p>
           </div>
         )}
       </div>
 
       {/* Create Quiz Modal */}
       {showCreateModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
-          <div className="max-w-3xl w-full glass border border-slate-800 rounded-3xl p-8 max-h-[90vh] overflow-auto">
-            <div className="flex items-center justify-between mb-8">
-              <h3 className="text-2xl font-bold text-white">Design New Quiz</h3>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md">
+          <div className="max-w-3xl w-full bg-base-100 border border-base-300 rounded-[2.5rem] p-10 max-h-[90vh] overflow-auto shadow-2xl animate-in zoom-in-95">
+            <div className="flex items-center justify-between mb-10">
+              <h3 className="text-2xl font-black text-base-content flex items-center gap-3">
+                <div className="w-10 h-10 bg-primary/20 rounded-xl flex items-center justify-center text-primary">
+                  <FiPlus />
+                </div>
+                Design New Quiz
+              </h3>
               <button
                 onClick={() => setShowCreateModal(false)}
-                className="text-slate-500 hover:text-white"
+                className="btn btn-ghost btn-sm rounded-full"
               >
                 ✕
               </button>
             </div>
 
             <form onSubmit={handleCreateQuiz} className="space-y-8">
-              <div className="grid grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm text-slate-400 mb-2">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="space-y-3">
+                  <label className="text-xs font-black text-base-content/40 uppercase tracking-widest ml-2">
                     Relate to Course
                   </label>
                   <select
-                    className="w-full bg-slate-900 border border-slate-700 rounded-xl py-3 px-4 text-white"
+                    className="select select-bordered w-full rounded-2xl h-14 font-bold bg-base-200 border-none focus:ring-2 focus:ring-primary/20"
                     value={newQuiz.courseId}
                     onChange={(e) =>
                       setNewQuiz({ ...newQuiz, courseId: e.target.value })
@@ -226,14 +235,14 @@ const Quizzes = () => {
                   </select>
                 </div>
 
-                <div>
-                  <label className="block text-sm text-slate-400 mb-2">
+                <div className="space-y-3">
+                  <label className="text-xs font-black text-base-content/40 uppercase tracking-widest ml-2">
                     Duration (Minutes)
                   </label>
                   <input
                     type="number"
                     required
-                    className="w-full bg-slate-900 border border-slate-700 rounded-xl py-3 px-4 text-white"
+                    className="input input-bordered w-full rounded-2xl h-14 font-bold bg-base-200 border-none focus:ring-2 focus:ring-primary/20"
                     value={newQuiz.duration}
                     onChange={(e) =>
                       setNewQuiz({ ...newQuiz, duration: e.target.value })
@@ -242,14 +251,14 @@ const Quizzes = () => {
                 </div>
               </div>
 
-              <div>
-                <label className="block text-sm text-slate-400 mb-2">
+              <div className="space-y-3">
+                <label className="text-xs font-black text-base-content/40 uppercase tracking-widest ml-2">
                   Quiz Title
                 </label>
                 <input
                   required
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl py-3 px-4 text-white"
-                  placeholder="e.g. Mid-term Assessment"
+                  className="input input-bordered w-full rounded-2xl h-14 font-bold bg-base-200 border-none focus:ring-2 focus:ring-primary/20"
+                  placeholder="e.g. Advanced JavaScript Mastery"
                   value={newQuiz.title}
                   onChange={(e) =>
                     setNewQuiz({ ...newQuiz, title: e.target.value })
@@ -260,13 +269,13 @@ const Quizzes = () => {
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full bg-primary-600 hover:bg-primary-500 text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2"
+                className="btn btn-primary w-full rounded-2xl h-16 text-lg font-black shadow-xl shadow-primary/20 group"
               >
                 {submitting ? (
                   <FiLoader className="animate-spin" size={20} />
                 ) : (
                   <>
-                    <FiCheckCircle size={20} />
+                    <FiCheckCircle size={24} className="group-hover:scale-110 transition-transform" />
                     Deploy Quiz
                   </>
                 )}
