@@ -28,15 +28,22 @@ export const getQuizzes = async (req, res, next) => {
 export const createQuiz = async (req, res, next) => {
     try {
         const { courseId, title, duration, questions } = req.body;
+        console.log("Creating Quiz with data:", { courseId, title, duration, questionsCount: questions?.length });
+
+        if (!title || title.trim() === "") {
+            return res.status(400).json({ message: "Quiz title is required" });
+        }
+
         const quiz = await Quiz.create({
             course: courseId,
             title,
-            duration,
+            duration: Number(duration) || 15,
             questions,
-            createdBy: req.user._id
+            createdBy: req.user?._id
         });
         res.status(201).json(quiz);
     } catch (error) {
+        console.error("CREATE QUIZ ERROR:", error);
         next(error);
     }
 };
@@ -100,6 +107,17 @@ export const submitQuizAttempt = async (req, res, next) => {
             attempt,
             explanation: quiz.questions.map(q => ({ qId: q._id, explanation: q.explanation }))
         });
+    } catch (error) {
+        next(error);
+    }
+};
+
+//  Delete a quiz
+export const deleteQuiz = async (req, res, next) => {
+    try {
+        const quiz = await Quiz.findByIdAndDelete(req.params.id);
+        if (!quiz) return res.status(404).json({ message: 'Quiz not found' });
+        res.json({ message: 'Quiz deleted successfully' });
     } catch (error) {
         next(error);
     }

@@ -12,7 +12,8 @@ import {
     FiLock,
     FiUnlock,
     FiAlertCircle,
-    FiLoader
+    FiLoader,
+    FiVideo
 } from 'react-icons/fi';
 
 const CourseDetail = () => {
@@ -165,7 +166,7 @@ const CourseDetail = () => {
                                     <video
                                         controls
                                         className="w-full h-full bg-black"
-                                        src={activeLesson.videoUrl}
+                                        src={activeLesson.videoUrl.startsWith('/') ? `http://localhost:5000${activeLesson.videoUrl}` : activeLesson.videoUrl}
                                     />
                                 )
                             ) : (
@@ -217,10 +218,8 @@ const CourseDetail = () => {
                                                 className="flex items-center justify-between p-3 rounded-xl bg-slate-900/30 border border-slate-800 cursor-pointer"
                                             >
                                                 <div className="flex items-center gap-3">
-                                                    {isComplete
-                                                        ? <FiCheckCircle size={18} className="text-emerald-500" />
-                                                        : <FiPlay size={14} />}
-                                                    <p className="text-xs text-slate-400 font-semibold">
+                                                    {(lesson.videoUrl?.endsWith('.mp4') || lesson.videoUrl?.includes('/uploads/')) ? <FiVideo className="text-primary-500" /> : <FiPlay size={14} />}
+                                                    <p className="text-xs text-slate-400 font-semibold truncate max-w-[150px]">
                                                         {lesson.title}
                                                     </p>
                                                 </div>
@@ -229,7 +228,7 @@ const CourseDetail = () => {
                                                     onClick={(e) => handleLessonComplete(e, lesson.id)}
                                                     className="text-slate-500 hover:text-primary-500"
                                                 >
-                                                    <FiCheckCircle size={16} />
+                                                    {isComplete ? <FiCheckCircle size={16} className="text-emerald-500" /> : <FiCheckCircle size={16} />}
                                                 </button>
                                             </div>
                                         );
@@ -243,5 +242,7 @@ const CourseDetail = () => {
         </div>
     );
 };
+
+
 
 export default CourseDetail;

@@ -3,9 +3,18 @@ import Assignment from "../models/AssignmentModel.js";
 import User from "../models/UserModel.js";
 import Course from "../models/CourseModel.js";
 
-// Get all assignments for courses student is enrolled in
+// Get all assignments (Enrolled for student, Own for teacher)
 export const getAssignments = async (req, res, next) => {
   try {
+    if (req.user.role === "teacher") {
+      const courses = await Course.find({ instructor: req.user._id });
+      const courseIds = courses.map((c) => c._id);
+      const assignments = await Assignment.find({
+        course: { $in: courseIds },
+      }).populate("course", "name");
+      return res.json(assignments);
+    }
+
     const user = await User.findById(req.user._id);
     const courseIds = user.enrolledCourses.map((c) => c.course);
 
@@ -13,6 +22,30 @@ export const getAssignments = async (req, res, next) => {
       course: { $in: courseIds },
     }).populate("course", "name");
     res.json(assignments);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Create a new assignment (Teacher only)
+export const createAssignment = async (req, res, next) => {
+  try {
+    const { courseId, title, description, deadline } = req.body;
+
+    // Verify course belongs to teacher
+    const course = await Course.findOne({ _id: courseId, instructor: req.user._id });
+    if (!course) {
+      return res.status(403).json({ message: "Not authorized to create assignment for this course" });
+    }
+
+    const assignment = await Assignment.create({
+      course: courseId,
+      title,
+      description,
+      deadline,
+    });
+
+    res.status(201).json(assignment);
   } catch (error) {
     next(error);
   }

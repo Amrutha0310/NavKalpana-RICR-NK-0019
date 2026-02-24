@@ -21,6 +21,8 @@ const doubtSchema = mongoose.Schema(
       default: "Doubt",
     },
     status: { type: String, enum: ["Pending", "Resolved"], default: "Pending" },
+    teacherReply: { type: String },
+    resolvedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   },
   { timestamps: true },
 );

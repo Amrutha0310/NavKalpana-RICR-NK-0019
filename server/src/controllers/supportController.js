@@ -44,10 +44,16 @@ export const getDoubts = async (req, res, next) => {
 //    Resolve a doubt
 export const resolveDoubt = async (req, res, next) => {
     try {
-        const doubt = await Doubt.findById(req.params.id);
+        const { id } = req.params;
+        const { teacherReply } = req.body;
+
+        const doubt = await Doubt.findById(id);
         if (!doubt) return res.status(404).json({ message: 'Not found' });
 
         doubt.status = 'Resolved';
+        doubt.teacherReply = teacherReply;
+        doubt.resolvedBy = req.user._id;
+
         await doubt.save();
         res.json(doubt);
     } catch (error) {
