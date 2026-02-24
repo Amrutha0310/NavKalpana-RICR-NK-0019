@@ -87,6 +87,10 @@ const Quizzes = () => {
       return toast.error("Please select a course for this quiz");
     }
 
+    if (!newQuiz.title || newQuiz.title.trim() === "") {
+      return toast.error("Please provide a title for the quiz");
+    }
+
     // Validation
     const invalidQ = newQuiz.questions.find(q => !q.question || q.options.some(o => !o));
     if (invalidQ) return toast.error("Please fill all questions and options");
@@ -302,207 +306,208 @@ const Quizzes = () => {
             </div>
 
             {/* Modal Content - Scrollable Form */}
-            <form onSubmit={handleCreateQuiz} className="flex-1 overflow-auto p-10 space-y-12">
-
-              {/* Basic Info Section */}
-              <section className="space-y-8">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center font-black">1</div>
-                  <h4 className="text-lg font-black text-base-content tracking-wider uppercase opacity-50">Base Configuration</h4>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                  <div className="space-y-3">
-                    <label className="text-[10px] font-black text-base-content/40 uppercase tracking-[0.2em] ml-2">COURSE CONTEXT</label>
-                    <select
-                      className="select select-bordered w-full rounded-2xl h-14 font-black bg-base-200 border-none focus:ring-2 focus:ring-primary/20"
-                      value={newQuiz.courseId}
-                      onChange={(e) => setNewQuiz({ ...newQuiz, courseId: e.target.value })}
-                    >
-                      {courses.map((item) => {
-                        const course = item.course || item;
-                        return (
-                          <option key={course._id} value={course._id}>
-                            {course.name}
-                          </option>
-                        )
-                      })}
-                    </select>
-                  </div>
-
-                  <div className="md:col-span-1 space-y-3">
-                    <label className="text-[10px] font-black text-base-content/40 uppercase tracking-[0.2em] ml-2">TIME LIMIT (MINS)</label>
-                    <input
-                      type="number"
-                      required
-                      className="input input-bordered w-full rounded-2xl h-14 font-black bg-base-200 border-none focus:ring-2 focus:ring-primary/20"
-                      value={newQuiz.duration}
-                      onChange={(e) => setNewQuiz({ ...newQuiz, duration: e.target.value })}
-                    />
-                  </div>
-
-                  <div className="md:col-span-1 space-y-3">
-                    <label className="text-[10px] font-black text-base-content/40 uppercase tracking-[0.2em] ml-2">ASSESSMENT TITLE</label>
-                    <input
-                      required
-                      className="input input-bordered w-full rounded-2xl h-14 font-black bg-base-200 border-none focus:ring-2 focus:ring-primary/20"
-                      placeholder="e.g. React Architecture Advanced"
-                      value={newQuiz.title}
-                      onChange={(e) => setNewQuiz({ ...newQuiz, title: e.target.value })}
-                    />
-                  </div>
-                </div>
-              </section>
-
-              {/* Questions Section */}
-              <section className="space-y-8">
-                <div className="flex items-center justify-between">
+            <form onSubmit={handleCreateQuiz} className="flex-1 overflow-auto flex flex-col">
+              <div className="p-10 space-y-12 flex-1">
+                {/* Basic Info Section */}
+                <section className="space-y-8">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center font-black">2</div>
-                    <h4 className="text-lg font-black text-base-content tracking-wider uppercase opacity-50">Question Bank</h4>
+                    <div className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center font-black">1</div>
+                    <h4 className="text-lg font-black text-base-content tracking-wider uppercase opacity-50">Base Configuration</h4>
                   </div>
-                </div>
 
-                <div className="space-y-12">
-                  {newQuiz.questions.map((q, qIndex) => (
-                    <div key={qIndex} className="bg-base-200/50 p-8 rounded-[2rem] border border-base-300 relative group/q animate-in slide-in-from-left-4 duration-300">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div className="space-y-3">
+                      <label className="text-[10px] font-black text-base-content/40 uppercase tracking-[0.2em] ml-2">COURSE CONTEXT</label>
+                      <select
+                        className="select select-bordered w-full rounded-2xl h-14 font-black bg-base-200 border-none focus:ring-2 focus:ring-primary/20"
+                        value={newQuiz.courseId}
+                        onChange={(e) => setNewQuiz({ ...newQuiz, courseId: e.target.value })}
+                      >
+                        {courses.map((item) => {
+                          const course = item.course || item;
+                          return (
+                            <option key={course._id} value={course._id}>
+                              {course.name}
+                            </option>
+                          )
+                        })}
+                      </select>
+                    </div>
 
-                      {/* Question Index & Remove */}
-                      <div className="absolute -left-4 top-8 w-10 h-10 bg-primary text-primary-content rounded-xl flex items-center justify-center font-black shadow-lg">
-                        {qIndex + 1}
-                      </div>
+                    <div className="md:col-span-1 space-y-3">
+                      <label className="text-[10px] font-black text-base-content/40 uppercase tracking-[0.2em] ml-2">TIME LIMIT (MINS)</label>
+                      <input
+                        type="number"
+                        required
+                        className="input input-bordered w-full rounded-2xl h-14 font-black bg-base-200 border-none focus:ring-2 focus:ring-primary/20"
+                        value={newQuiz.duration}
+                        onChange={(e) => setNewQuiz({ ...newQuiz, duration: e.target.value })}
+                      />
+                    </div>
 
-                      {newQuiz.questions.length > 1 && (
-                        <button
-                          type="button"
-                          onClick={() => removeQuestion(qIndex)}
-                          className="absolute -right-4 top-8 w-10 h-10 bg-error text-white rounded-xl flex items-center justify-center shadow-lg hover:scale-110 transition-transform opacity-0 group-hover/q:opacity-100"
-                        >
-                          <FiTrash2 />
-                        </button>
-                      )}
+                    <div className="md:col-span-1 space-y-3">
+                      <label className="text-[10px] font-black text-base-content/40 uppercase tracking-[0.2em] ml-2">ASSESSMENT TITLE</label>
+                      <input
+                        required
+                        className="input input-bordered w-full rounded-2xl h-14 font-black bg-base-200 border-none focus:ring-2 focus:ring-primary/20"
+                        placeholder="e.g. React Architecture Advanced"
+                        value={newQuiz.title}
+                        onChange={(e) => setNewQuiz({ ...newQuiz, title: e.target.value })}
+                      />
+                    </div>
+                  </div>
+                </section>
 
-                      <div className="space-y-6">
-                        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                          <div className="md:col-span-3 space-y-2">
-                            <label className="text-[10px] font-black text-base-content/30 uppercase tracking-[0.2em] ml-2">QUESTION TEXT</label>
+                {/* Questions Section */}
+                <section className="space-y-8">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center font-black">2</div>
+                      <h4 className="text-lg font-black text-base-content tracking-wider uppercase opacity-50">Question Bank</h4>
+                    </div>
+                  </div>
+
+                  <div className="space-y-12">
+                    {newQuiz.questions.map((q, qIndex) => (
+                      <div key={qIndex} className="bg-base-200/50 p-8 rounded-[2rem] border border-base-300 relative group/q animate-in slide-in-from-left-4 duration-300">
+
+                        {/* Question Index & Remove */}
+                        <div className="absolute -left-4 top-8 w-10 h-10 bg-primary text-primary-content rounded-xl flex items-center justify-center font-black shadow-lg">
+                          {qIndex + 1}
+                        </div>
+
+                        {newQuiz.questions.length > 1 && (
+                          <button
+                            type="button"
+                            onClick={() => removeQuestion(qIndex)}
+                            className="absolute -right-4 top-8 w-10 h-10 bg-error text-white rounded-xl flex items-center justify-center shadow-lg hover:scale-110 transition-transform opacity-0 group-hover/q:opacity-100"
+                          >
+                            <FiTrash2 />
+                          </button>
+                        )}
+
+                        <div className="space-y-6">
+                          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                            <div className="md:col-span-3 space-y-2">
+                              <label className="text-[10px] font-black text-base-content/30 uppercase tracking-[0.2em] ml-2">QUESTION TEXT</label>
+                              <input
+                                required
+                                className="input input-ghost w-full bg-base-100 rounded-2xl h-14 font-bold focus:bg-base-100 text-lg"
+                                placeholder="State your question..."
+                                value={q.question}
+                                onChange={(e) => updateQuestion(qIndex, 'question', e.target.value)}
+                              />
+                            </div>
+                            <div className="space-y-2">
+                              <label className="text-[10px] font-black text-base-content/30 uppercase tracking-[0.2em] ml-2">TYPE</label>
+                              <select
+                                className="select select-ghost w-full bg-base-100 rounded-2xl h-14 font-black"
+                                value={q.type}
+                                onChange={(e) => updateQuestion(qIndex, 'type', e.target.value)}
+                              >
+                                <option value="single">Single Choice</option>
+                                <option value="multiple">Multiple Choice</option>
+                              </select>
+                            </div>
+                          </div>
+
+                          {/* Options Grid */}
+                          <div className="space-y-4">
+                            <label className="text-[10px] font-black text-base-content/30 uppercase tracking-[0.2em] ml-2">OPTIONS (SELECT CORRECT)</label>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                              {q.options.map((opt, oIndex) => (
+                                <div key={oIndex} className="flex gap-2">
+                                  <button
+                                    type="button"
+                                    onClick={() => toggleCorrectOption(qIndex, oIndex)}
+                                    className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all ${q.correctAnswers.includes(oIndex)
+                                      ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/30'
+                                      : 'bg-base-100 text-base-content/20'
+                                      }`}
+                                  >
+                                    {q.correctAnswers.includes(oIndex) ? <FiCheckCircle size={24} /> : <FiCircle size={24} />}
+                                  </button>
+                                  <div className="flex-1 relative group/opt">
+                                    <input
+                                      required
+                                      className="input input-ghost w-full bg-base-100 rounded-2xl h-14 font-medium"
+                                      placeholder={`Option ${oIndex + 1}`}
+                                      value={opt}
+                                      onChange={(e) => {
+                                        const o = [...q.options];
+                                        o[oIndex] = e.target.value;
+                                        updateQuestion(qIndex, 'options', o);
+                                      }}
+                                    />
+                                    {q.options.length > 2 && (
+                                      <button
+                                        type="button"
+                                        onClick={() => removeOption(qIndex, oIndex)}
+                                        className="absolute right-4 top-1/2 -translate-y-1/2 text-error opacity-0 group-hover/opt:opacity-100 transition-opacity"
+                                      >
+                                        <FiTrash2 />
+                                      </button>
+                                    )}
+                                  </div>
+                                </div>
+                              ))}
+                              <button
+                                type="button"
+                                onClick={() => addOption(qIndex)}
+                                className="h-14 rounded-2xl border-2 border-dashed border-base-300 flex items-center justify-center gap-2 font-black text-base-content/40 hover:border-primary hover:text-primary transition-all"
+                              >
+                                <FiPlus /> Add Choice
+                              </button>
+                            </div>
+                          </div>
+
+                          <div className="space-y-2">
+                            <label className="text-[10px] font-black text-base-content/30 uppercase tracking-[0.2em] ml-2">EXPLANATION (OPTIONAL)</label>
                             <input
-                              required
-                              className="input input-ghost w-full bg-base-100 rounded-2xl h-14 font-bold focus:bg-base-100 text-lg"
-                              placeholder="State your question..."
-                              value={q.question}
-                              onChange={(e) => updateQuestion(qIndex, 'question', e.target.value)}
+                              className="input input-ghost w-full bg-base-100 rounded-2xl h-14 font-medium"
+                              placeholder="Explain why the answer is correct..."
+                              value={q.explanation}
+                              onChange={(e) => updateQuestion(qIndex, 'explanation', e.target.value)}
                             />
                           </div>
-                          <div className="space-y-2">
-                            <label className="text-[10px] font-black text-base-content/30 uppercase tracking-[0.2em] ml-2">TYPE</label>
-                            <select
-                              className="select select-ghost w-full bg-base-100 rounded-2xl h-14 font-black"
-                              value={q.type}
-                              onChange={(e) => updateQuestion(qIndex, 'type', e.target.value)}
-                            >
-                              <option value="single">Single Choice</option>
-                              <option value="multiple">Multiple Choice</option>
-                            </select>
-                          </div>
-                        </div>
-
-                        {/* Options Grid */}
-                        <div className="space-y-4">
-                          <label className="text-[10px] font-black text-base-content/30 uppercase tracking-[0.2em] ml-2">OPTIONS (SELECT CORRECT)</label>
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            {q.options.map((opt, oIndex) => (
-                              <div key={oIndex} className="flex gap-2">
-                                <button
-                                  type="button"
-                                  onClick={() => toggleCorrectOption(qIndex, oIndex)}
-                                  className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all ${q.correctAnswers.includes(oIndex)
-                                    ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/30'
-                                    : 'bg-base-100 text-base-content/20'
-                                    }`}
-                                >
-                                  {q.correctAnswers.includes(oIndex) ? <FiCheckCircle size={24} /> : <FiCircle size={24} />}
-                                </button>
-                                <div className="flex-1 relative group/opt">
-                                  <input
-                                    required
-                                    className="input input-ghost w-full bg-base-100 rounded-2xl h-14 font-medium"
-                                    placeholder={`Option ${oIndex + 1}`}
-                                    value={opt}
-                                    onChange={(e) => {
-                                      const o = [...q.options];
-                                      o[oIndex] = e.target.value;
-                                      updateQuestion(qIndex, 'options', o);
-                                    }}
-                                  />
-                                  {q.options.length > 2 && (
-                                    <button
-                                      type="button"
-                                      onClick={() => removeOption(qIndex, oIndex)}
-                                      className="absolute right-4 top-1/2 -translate-y-1/2 text-error opacity-0 group-hover/opt:opacity-100 transition-opacity"
-                                    >
-                                      <FiTrash2 />
-                                    </button>
-                                  )}
-                                </div>
-                              </div>
-                            ))}
-                            <button
-                              type="button"
-                              onClick={() => addOption(qIndex)}
-                              className="h-14 rounded-2xl border-2 border-dashed border-base-300 flex items-center justify-center gap-2 font-black text-base-content/40 hover:border-primary hover:text-primary transition-all"
-                            >
-                              <FiPlus /> Add Choice
-                            </button>
-                          </div>
-                        </div>
-
-                        <div className="space-y-2">
-                          <label className="text-[10px] font-black text-base-content/30 uppercase tracking-[0.2em] ml-2">EXPLANATION (OPTIONAL)</label>
-                          <input
-                            className="input input-ghost w-full bg-base-100 rounded-2xl h-14 font-medium"
-                            placeholder="Explain why the answer is correct..."
-                            value={q.explanation}
-                            onChange={(e) => updateQuestion(qIndex, 'explanation', e.target.value)}
-                          />
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
 
-                  <button
-                    type="button"
-                    onClick={addQuestion}
-                    className="w-full h-24 rounded-[2rem] border-4 border-dashed border-base-300 flex flex-col items-center justify-center gap-1 group hover:border-primary hover:bg-primary/5 transition-all text-base-content/20 hover:text-primary"
-                  >
-                    <FiPlus size={32} className="group-hover:rotate-90 transition-transform duration-300" />
-                    <span className="font-black uppercase tracking-widest text-xs">Append Question</span>
-                  </button>
-                </div>
-              </section>
+                    <button
+                      type="button"
+                      onClick={addQuestion}
+                      className="w-full h-24 rounded-[2rem] border-4 border-dashed border-base-300 flex flex-col items-center justify-center gap-1 group hover:border-primary hover:bg-primary/5 transition-all text-base-content/20 hover:text-primary"
+                    >
+                      <FiPlus size={32} className="group-hover:rotate-90 transition-transform duration-300" />
+                      <span className="font-black uppercase tracking-widest text-xs">Append Question</span>
+                    </button>
+                  </div>
+                </section>
+              </div>
+
+              <div className="p-8 border-t border-base-300 bg-base-200/50 flex justify-end gap-4 sticky bottom-0 z-10">
+                <button
+                  type="button"
+                  onClick={() => setShowCreateModal(false)}
+                  className="px-10 py-4 rounded-2full font-black text-base-content/60 hover:bg-base-300 transition-all rounded-2xl"
+                >
+                  Discard Draft
+                </button>
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="bg-primary hover:bg-primary/90 text-primary-content px-12 py-4 rounded-2xl h-16 font-black flex items-center gap-3 shadow-xl shadow-primary/20 transition-all group active:scale-95"
+                >
+                  {submitting ? <FiLoader className="animate-spin" /> : (
+                    <>
+                      DEPLOY TO HUB
+                      <FiTarget size={22} className="group-hover:scale-125 transition-transform" />
+                    </>
+                  )}
+                </button>
+              </div>
             </form>
-
-            <div className="p-8 border-t border-base-300 bg-base-200/50 flex justify-end gap-4">
-              <button
-                type="button"
-                onClick={() => setShowCreateModal(false)}
-                className="px-10 py-4 rounded-2full font-black text-base-content/60 hover:bg-base-300 transition-all rounded-2xl"
-              >
-                Discard Draft
-              </button>
-              <button
-                onClick={handleCreateQuiz}
-                disabled={submitting}
-                className="bg-primary hover:bg-primary/90 text-primary-content px-12 py-4 rounded-2xl h-16 font-black flex items-center gap-3 shadow-xl shadow-primary/20 transition-all group active:scale-95"
-              >
-                {submitting ? <FiLoader className="animate-spin" /> : (
-                  <>
-                    DEPLOY TO HUB
-                    <FiTarget size={22} className="group-hover:scale-125 transition-transform" />
-                  </>
-                )}
-              </button>
-            </div>
           </div>
         </div>
       )}

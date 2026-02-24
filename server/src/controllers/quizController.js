@@ -30,10 +30,14 @@ export const createQuiz = async (req, res, next) => {
         const { courseId, title, duration, questions } = req.body;
         console.log("Creating Quiz with data:", { courseId, title, duration, questionsCount: questions?.length });
 
+        if (!title || title.trim() === "") {
+            return res.status(400).json({ message: "Quiz title is required" });
+        }
+
         const quiz = await Quiz.create({
             course: courseId,
             title,
-            duration: Number(duration),
+            duration: Number(duration) || 15,
             questions,
             createdBy: req.user?._id
         });
