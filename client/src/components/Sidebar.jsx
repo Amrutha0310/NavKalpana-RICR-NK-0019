@@ -22,7 +22,7 @@ const Sidebar = () => {
   };
 
   const studentMenu = [
-    { name: "Dashboard", icon: FaTachometerAlt, path: "/dashboard" },
+    { name: "Dashboard", icon: FaTachometerAlt, path: "/student-dashboard" },
     { name: "My Courses", icon: FaBookOpen, path: "/courses" },
     { name: "Assignments", icon: FaClipboardList, path: "/assignments" },
     { name: "Quizzes", icon: FaBrain, path: "/quizzes" },

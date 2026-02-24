@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import {
@@ -70,11 +69,12 @@ const Navbar = () => {
           <FaGraduationCap className="text-primary text-3xl" />
           <div className="leading-tight">
             <h1 className="text-xl font-bold tracking-tight">learnify</h1>
-            <p className="text-[10px] uppercase font-medium text-base-content/50 tracking-widest">Portal</p>
+            <p className="text-[10px] uppercase font-medium text-base-content/50 tracking-widest">
+              Portal
+            </p>
           </div>
-         </div> 
+        </div>
 
-      
         {/* RIGHT */}
         <div className="flex items-center gap-4">
           <select
@@ -88,10 +88,23 @@ const Navbar = () => {
 
           {user ? (
             <div className="flex items-center gap-4">
-              <div className="hidden lg:flex flex-col items-end leading-none">
+              
+              <div
+                onClick={() =>
+                  navigate(
+                    user.role === "teacher"
+                      ? "/teacher-dashboard"
+                      : "/student-dashboard",
+                  )
+                }
+                className="hidden lg:flex flex-col items-end leading-none cursor-pointer hover:opacity-80 transition"
+              >
                 <span className="text-[14px] font-bold">{user.fullName}</span>
-                <span className="text-[10px] uppercase font-black text-primary opacity-70">{user.role}</span>
+                <span className="text-[10px] uppercase font-black text-primary opacity-70">
+                  {user.role}
+                </span>
               </div>
+
               <button
                 onClick={handleLogout}
                 className="btn btn-error btn-sm btn-outline px-5 rounded-full font-black text-xs"

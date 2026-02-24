@@ -42,6 +42,7 @@ const Login = () => {
       window.dispatchEvent(new Event("userLogin"));
 
       handleClearForm();
+      localStorage.setItem("role", res.data.data.role);
       switch (res.data.data.role) {
         case "teacher": {
           setRole("teacher");
