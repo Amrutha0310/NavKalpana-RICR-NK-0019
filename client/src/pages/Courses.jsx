@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import api from '../config/Api';
 import { Link } from 'react-router-dom';
@@ -82,8 +81,8 @@ const Courses = () => {
 
     if (loading)
         return (
-            <div className="flex items-center justify-center h-full">
-                <FiLoader className="text-primary-500 animate-spin" size={48} />
+            <div className="flex items-center justify-center min-h-[400px]">
+                <FiLoader className="text-primary animate-spin" size={48} />
             </div>
         );
 
@@ -91,7 +90,7 @@ const Courses = () => {
         <div className="space-y-8 p-6">
             <div className="flex items-center justify-between">
                 <div>
-                    <h2 className="text-3xl font-bold text-white">
+                    <h2 className="text-3xl font-bold text-base-content">
                         {role === 'teacher' ? 'Course Management' : 'My Learning'}
                     </h2>
                 </div>
@@ -99,7 +98,7 @@ const Courses = () => {
                 <div className="flex gap-4">
                     <button
                         onClick={() => setView(view === 'my' ? 'explore' : 'my')}
-                        className="btn btn-outline btn-sm"
+                        className="btn btn-outline btn-sm rounded-xl"
                     >
                         {view === 'my' ? 'Explore Courses' : 'My Courses'}
                     </button>
@@ -107,7 +106,7 @@ const Courses = () => {
                     {role === 'teacher' && (
                         <button
                             onClick={() => setShowCreateModal(true)}
-                            className="bg-primary-600 text-white font-bold py-3 px-6 rounded-2xl flex items-center gap-2"
+                            className="btn btn-primary rounded-xl flex items-center gap-2"
                         >
                             <FiPlus size={20} /> Create Course
                         </button>
@@ -117,10 +116,10 @@ const Courses = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {courses.length === 0 ? (
-                    <div className="col-span-full py-20 text-center glass rounded-3xl border-2 border-dashed border-slate-800">
-                        <FiBookOpen className="mx-auto mb-4 text-slate-700 opacity-20" size={64} />
+                    <div className="col-span-full py-20 text-center bg-base-100 rounded-3xl border-2 border-dashed border-base-300 shadow-sm">
+                        <FiBookOpen className="mx-auto mb-4 text-base-content/20" size={64} />
                         <p className="text-xl font-medium uppercase tracking-widest text-base-content/30 italic">No courses available</p>
-                        <p className="text-sm text-slate-500 mt-2">Check back later for new content!</p>
+                        <p className="text-sm text-base-content/50 mt-2">Check back later for new content!</p>
                     </div>
                 ) : (
                     courses.map((item) => {
@@ -144,36 +143,42 @@ const Courses = () => {
             </div>
 
             {showCreateModal && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
-                    <div className="bg-slate-900 p-8 rounded-2xl w-full max-w-2xl border border-slate-800">
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
+                    <div className="bg-base-100 p-8 rounded-3xl w-full max-w-2xl border border-base-300 shadow-2xl animate-in zoom-in-95 duration-200">
                         <div className="flex justify-between items-center mb-6">
-                            <h3 className="text-2xl font-bold text-white flex items-center gap-2">
-                                <FiBookOpen /> Publish New Course
+                            <h3 className="text-2xl font-bold text-base-content flex items-center gap-2">
+                                <FiBookOpen className="text-primary" /> Publish New Course
                             </h3>
-                            <button onClick={() => setShowCreateModal(false)} className="text-slate-400 hover:text-white">✕</button>
+                            <button onClick={() => setShowCreateModal(false)} className="btn btn-ghost btn-sm rounded-full">✕</button>
                         </div>
 
-                        <form onSubmit={handleCreateCourse} className="space-y-4">
-                            <input
-                                required
-                                className="w-full bg-slate-800 p-3 rounded-xl text-white outline-hidden border border-slate-700 focus:border-primary-500"
-                                placeholder="Course Title"
-                                value={newCourse.name}
-                                onChange={(e) => setNewCourse({ ...newCourse, name: e.target.value })}
-                            />
+                        <form onSubmit={handleCreateCourse} className="space-y-5">
+                            <div className="space-y-2">
+                                <label className="text-sm font-bold text-base-content/60 ml-1">COURSE TITLE</label>
+                                <input
+                                    required
+                                    className="input input-bordered w-full rounded-2xl focus:input-primary"
+                                    placeholder="e.g. Advanced Web Development"
+                                    value={newCourse.name}
+                                    onChange={(e) => setNewCourse({ ...newCourse, name: e.target.value })}
+                                />
+                            </div>
 
-                            <textarea
-                                required
-                                className="w-full bg-slate-800 p-3 rounded-xl text-white h-32 outline-hidden border border-slate-700 focus:border-primary-500"
-                                placeholder="Description"
-                                value={newCourse.description}
-                                onChange={(e) => setNewCourse({ ...newCourse, description: e.target.value })}
-                            />
+                            <div className="space-y-2">
+                                <label className="text-sm font-bold text-base-content/60 ml-1">DESCRIPTION</label>
+                                <textarea
+                                    required
+                                    className="textarea textarea-bordered w-full h-32 rounded-2xl focus:textarea-primary"
+                                    placeholder="Enter course details and learning objectives..."
+                                    value={newCourse.description}
+                                    onChange={(e) => setNewCourse({ ...newCourse, description: e.target.value })}
+                                />
+                            </div>
 
                             <button
                                 type="submit"
                                 disabled={submitting}
-                                className="w-full bg-primary-600 py-3 rounded-xl text-white font-bold flex items-center justify-center gap-2 hover:bg-primary-500 transition-colors"
+                                className="btn btn-primary w-full rounded-2xl h-14 text-lg font-bold shadow-lg shadow-primary/20"
                             >
                                 {submitting ? <FiLoader className="animate-spin" /> : 'Launch Course'}
                             </button>
@@ -194,40 +199,40 @@ const CourseCard = ({
     onEnroll,
     isExplore
 }) => (
-    <div className="bg-slate-900 rounded-3xl overflow-hidden border border-slate-800 flex flex-col hover:border-slate-700 transition-colors shadow-xl">
-        <div className="p-6 flex-1 flex flex-col">
-            <h3 className="text-xl font-bold text-white mb-2">{course.name}</h3>
-            <p className="text-slate-500 text-sm mb-4 line-clamp-2">{course.description}</p>
+    <div className="bg-base-100 rounded-3xl overflow-hidden border border-base-300 flex flex-col hover:border-primary transition-all duration-300 shadow-sm hover:shadow-xl group">
+        <div className="p-7 flex-1 flex flex-col">
+            <h3 className="text-xl font-bold text-base-content mb-2 group-hover:text-primary transition-colors">{course.name}</h3>
+            <p className="text-base-content/60 text-sm mb-6 line-clamp-2 leading-relaxed">{course.description}</p>
 
             {!isTeacher && !isExplore && (
-                <div className="mb-6">
-                    <div className="flex justify-between text-xs mb-1">
-                        <span className="text-slate-400 font-bold uppercase">Learning Progress</span>
-                        <span className="text-primary-400 font-bold">{progress}%</span>
+                <div className="mb-6 space-y-3">
+                    <div className="flex justify-between text-xs font-bold uppercase tracking-wider">
+                        <span className="text-base-content/40 italic">Learning Progress</span>
+                        <span className="text-primary">{progress}%</span>
                     </div>
-                    <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
+                    <div className="h-2.5 bg-base-200 rounded-full overflow-hidden shadow-inner">
                         <div
-                            className="h-full bg-primary-500 transition-all duration-500"
+                            className="h-full bg-primary transition-all duration-700 ease-out"
                             style={{ width: `${progress}%` }}
                         />
                     </div>
                 </div>
             )}
 
-            <div className="flex gap-3 mt-auto">
+            <div className="flex gap-3 mt-auto pt-4">
                 {isTeacher ? (
                     <>
-                        <button className="flex-1 bg-slate-800 py-3 rounded-xl flex items-center justify-center gap-2 text-white hover:bg-slate-700">
+                        <button className="flex-1 btn btn-ghost bg-base-200 hover:bg-base-300 rounded-2xl flex items-center justify-center gap-2 text-base-content border-none">
                             <FiEdit2 size={18} /> Manage
                         </button>
-                        <button className="w-12 h-12 flex items-center justify-center text-red-400 hover:bg-red-400/10 rounded-xl transition-colors">
+                        <button className="btn btn-ghost w-12 h-12 flex items-center justify-center text-error hover:bg-error/10 rounded-2xl border-none transition-colors">
                             <FiTrash2 size={20} />
                         </button>
                     </>
                 ) : isExplore ? (
                     <button
                         onClick={onEnroll}
-                        className="flex-1 bg-primary-600 py-3 rounded-xl flex items-center justify-center gap-2 text-white hover:bg-primary-500"
+                        className="flex-1 btn btn-primary rounded-2xl flex items-center justify-center gap-2 text-white shadow-md shadow-primary/20 h-12"
                     >
                         <FiPlus size={18} /> Enroll Now
                     </button>
@@ -235,13 +240,14 @@ const CourseCard = ({
                     <>
                         <Link
                             to={`/CourseDetail?id=${course._id}`}
-                            className="flex-1 bg-slate-800 py-3 rounded-xl flex items-center justify-center gap-2 text-white hover:bg-slate-700"
+                            className="flex-1 btn btn-ghost bg-base-200 hover:bg-base-300 rounded-2xl flex items-center justify-center gap-2 text-base-content border-none h-12"
                         >
-                            <FiPlay size={18} /> Resume
+                            <FiPlay size={18} className="text-primary" /> Resume
                         </Link>
                         <button
                             onClick={onMarkComplete}
-                            className="w-12 h-12 flex items-center justify-center text-emerald-400 hover:bg-emerald-400/10 rounded-xl transition-colors"
+                            className={`btn btn-ghost w-12 h-12 flex items-center justify-center rounded-2xl border-none transition-colors ${progress === 100 ? 'text-emerald-500 bg-emerald-500/10' : 'text-base-content/30 hover:bg-emerald-500/10 hover:text-emerald-500'
+                                }`}
                         >
                             <FiCheckCircle size={22} />
                         </button>
