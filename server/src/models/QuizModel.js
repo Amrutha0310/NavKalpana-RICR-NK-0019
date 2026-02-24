@@ -12,6 +12,7 @@ const quizSchema = new mongoose.Schema(
   {
     course: {
       type: mongoose.Schema.Types.ObjectId,
+
       ref: "Course",
       required: true,
     },
@@ -19,6 +20,12 @@ const quizSchema = new mongoose.Schema(
     duration: { type: Number, required: true }, // in minutes
     totalQuestions: { type: Number, default: 0 },
     questions: [questionSchema],
+
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
   },
   { timestamps: true },
 );
