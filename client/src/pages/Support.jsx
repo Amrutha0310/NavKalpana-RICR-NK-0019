@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import api from '../config/Api';
 import { useAuth } from '../context/AuthContext';
@@ -132,8 +133,8 @@ const Support = () => {
                 )}
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-                <div className="lg:col-span-8 space-y-8">
+            <div className="space-y-8">
+                <div className="space-y-8">
                     <div className="flex items-center gap-4 mb-4">
                         <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
                             <FiMessageSquare size={20} />
@@ -238,158 +239,126 @@ const Support = () => {
                                                     >
                                                         <FiSend /> Decrypt & Respond
                                                     </button>
-                                                )
-                                            )}
-                                                )
-                                    )}
+                                                )}
                                             </div>
+                                        )
+                                    )}
+                                </div>
                             </div>
                         ))}
 
-                                {doubts.length === 0 && (
-                                    <div className="text-center py-32 bg-base-100 rounded-[3rem] border-4 border-dashed border-base-200">
-                                        <FiMessageSquare
-                                            className="mx-auto mb-6 text-base-content/5"
-                                            size={100}
-                                        />
-                                        <h3 className="text-2xl font-black text-base-content/20 uppercase tracking-widest">
-                                            Clean Frequency
-                                        </h3>
-                                        <p className="text-base-content/20 font-bold mt-2 italic">
-                                            No active transmissions detected in this sector.
-                                        </p>
-                                    </div>
-                                )}
+                        {doubts.length === 0 && (
+                            <div className="text-center py-32 bg-base-100 rounded-[3rem] border-4 border-dashed border-base-200">
+                                <FiMessageSquare
+                                    className="mx-auto mb-6 text-base-content/5"
+                                    size={100}
+                                />
+                                <h3 className="text-2xl font-black text-base-content/20 uppercase tracking-widest">
+                                    Clean Frequency
+                                </h3>
+                                <p className="text-base-content/20 font-bold mt-2 italic">
+                                    No active transmissions detected in this sector.
+                                </p>
                             </div>
-                </div>
-
-                    <div className="lg:col-span-4 space-y-8">
-                        <div className="bg-base-100 p-8 rounded-[2.5rem] border border-base-300 shadow-xl space-y-6">
-                            <div className="w-14 h-14 bg-primary/10 text-primary rounded-2xl flex items-center justify-center">
-                                <FiInfo size={24} />
-                            </div>
-                            <h4 className="text-xl font-black uppercase tracking-tight">Support Directives</h4>
-                            <div className="space-y-4">
-                                <div className="flex gap-4 items-start">
-                                    <div className="w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[10px] font-black shrink-0">1</div>
-                                    <p className="text-sm font-medium text-base-content/60 leading-snug">All queries are tracked and monitored for quality assurance.</p>
-                                </div>
-                                <div className="flex gap-4 items-start">
-                                    <div className="w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[10px] font-black shrink-0">2</div>
-                                    <p className="text-sm font-medium text-base-content/60 leading-snug">Response time varies based on faculty bandwidth.</p>
-                                </div>
-                                <div className="flex gap-4 items-start">
-                                    <div className="w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[10px] font-black shrink-0">3</div>
-                                    <p className="text-sm font-medium text-base-content/60 leading-snug">Priority is given to technical blockers and conceptual gaps.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="bg-primary p-1 rounded-[2.5rem] shadow-2xl shadow-primary/30">
-                            <div className="bg-base-100 p-8 rounded-[2.3rem] space-y-6">
-                                <div className="h-40 bg-primary/5 rounded-[2rem] flex items-center justify-center relative overflow-hidden">
-                                    <FiLifeBuoy size={80} className="text-primary/10 absolute -bottom-4 -right-4 rotate-12" />
-                                    <FiLifeBuoy size={48} className="text-primary animate-spin-slow" />
-                                </div>
-                                <div className="space-y-2">
-                                    <h4 className="text-2xl font-black tracking-tight">Global Support</h4>
-                                    <p className="text-base-content/50 text-xs font-medium leading-relaxed">Need instantaneous assistance? Jump into our global developer hub for 24/7 technical monitoring.</p>
-                                </div>
-                                <button className="btn btn-primary w-full h-14 rounded-2xl font-black uppercase tracking-widest text-xs">Access Global Hub</button>
-                            </div>
-                        </div>
+                        )}
                     </div>
                 </div>
+            </div>
 
-                {/* Student Request Modal */}
-                {showForm && (
-                    <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/80 backdrop-blur-xl animate-in fade-in duration-300">
-                        <div className="max-w-2xl w-full bg-base-100 border border-base-300 rounded-[3rem] p-12 shadow-2xl animate-in zoom-in-95 relative overflow-hidden">
-                            <div className="absolute top-0 left-0 w-full h-2 bg-primary"></div>
+            {/* Student Request Modal */}
+            {showForm && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/80 backdrop-blur-xl animate-in fade-in duration-300">
+                    <div className="max-w-2xl w-full bg-base-100 border border-base-300 rounded-[3rem] p-12 shadow-2xl animate-in zoom-in-95 relative overflow-hidden">
+                        <div className="absolute top-0 left-0 w-full h-2 bg-primary"></div>
 
-                            <div className="flex items-center justify-between mb-12">
-                                <h3 className="text-3xl font-black text-base-content flex items-center gap-4 uppercase tracking-tighter">
-                                    <div className="w-12 h-12 bg-primary/20 rounded-2xl flex items-center justify-center text-primary group">
-                                        <FiPlus className="group-hover:rotate-90 transition-transform" />
-                                    </div>
-                                    Transmit Intel Request
-                                </h3>
-                                <button
-                                    onClick={() => setShowForm(false)}
-                                    className="btn btn-ghost btn-circle"
-                                >
-                                    <FiX size={24} />
-                                </button>
-                            </div>
-
-                            <form
-                                onSubmit={handleSubmit}
-                                className="space-y-10"
-                            >
-                                <div className="space-y-4">
-                                    <label className="text-[10px] font-black text-base-content/40 uppercase tracking-[0.3em] ml-2">
-                                        Target Subject
-                                    </label>
-                                    <div className="relative group">
-                                        <input
-                                            required
-                                            className="input input-bordered w-full rounded-2xl h-16 font-bold bg-base-200 border-none focus:ring-4 focus:ring-primary/10 transition-all pl-12"
-                                            value={formData.topic}
-                                            placeholder="Briefly state your technical query..."
-                                            onChange={(e) =>
-                                                setFormData({
-                                                    ...formData,
-                                                    topic: e.target.value
-                                                })
-                                            }
-                                        />
-                                        <FiInfo className="absolute left-4 top-1/2 -translate-y-1/2 text-primary" size={20} />
-                                    </div>
+                        <div className="flex items-center justify-between mb-12">
+                            <h3 className="text-3xl font-black text-base-content flex items-center gap-4 uppercase tracking-tighter">
+                                <div className="w-12 h-12 bg-primary/20 rounded-2xl flex items-center justify-center text-primary group">
+                                    <FiPlus className="group-hover:rotate-90 transition-transform" />
                                 </div>
+                                Transmit Intel Request
+                            </h3>
+                            <button
+                                onClick={() => setShowForm(false)}
+                                className="btn btn-ghost btn-circle"
+                            >
+                                <FiX size={24} />
+                            </button>
+                        </div>
 
-                                <div className="space-y-4">
-                                    <label className="text-[10px] font-black text-base-content/40 uppercase tracking-[0.3em] ml-2">
-                                        Mission Parameters (Description)
-                                    </label>
-                                    <textarea
+                        <form
+                            onSubmit={handleSubmit}
+                            className="space-y-10"
+                        >
+                            <div className="space-y-4">
+                                <label className="text-[10px] font-black text-base-content/40 uppercase tracking-[0.3em] ml-2">
+                                    Target Subject
+                                </label>
+                                <div className="relative group">
+                                    <input
                                         required
-                                        className="textarea textarea-bordered w-full rounded-[2rem] h-40 font-bold bg-base-200 border-none focus:ring-4 focus:ring-primary/10 transition-all p-8 leading-relaxed"
-                                        placeholder="Explain the specific gap in your intel..."
-                                        value={formData.description}
+                                        className="input input-bordered w-full rounded-2xl h-16 font-bold bg-base-200 border-none focus:ring-4 focus:ring-primary/10 transition-all pl-12"
+                                        value={formData.topic}
+                                        placeholder="Briefly state your technical query..."
                                         onChange={(e) =>
                                             setFormData({
                                                 ...formData,
-                                                description: e.target.value
+                                                topic: e.target.value
                                             })
                                         }
                                     />
+                                    <FiInfo className="absolute left-4 top-1/2 -translate-y-1/2 text-primary" size={20} />
                                 </div>
+                            </div>
 
-                                <button
-                                    type="submit"
-                                    disabled={submitting}
-                                    className="btn btn-primary w-full rounded-2xl h-16 text-sm font-black uppercase tracking-[0.2em] shadow-xl shadow-primary/30 group active:scale-[0.98] transition-all"
-                                >
-                                    {submitting ? (
-                                        <FiLoader
-                                            className="animate-spin"
-                                            size={24}
-                                        />
-                                    ) : (
-                                        <>
-                                            COMMENCE TRANSMISSION
-                                            <FiSend size={24} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                                        </>
-                                    )}
-                                </button>
-                            </form>
-                        </div>
+                            <div className="space-y-4">
+                                <label className="text-[10px] font-black text-base-content/40 uppercase tracking-[0.3em] ml-2">
+                                    Mission Parameters (Description)
+                                </label>
+                                <textarea
+                                    required
+                                    className="textarea textarea-bordered w-full rounded-[2rem] h-40 font-bold bg-base-200 border-none focus:ring-4 focus:ring-primary/10 transition-all p-8 leading-relaxed"
+                                    placeholder="Explain the specific gap in your intel..."
+                                    value={formData.description}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            description: e.target.value
+                                        })
+                                    }
+                                />
+                            </div>
+
+                            <button
+                                type="submit"
+                                disabled={submitting}
+                                className="btn btn-primary w-full rounded-2xl h-16 text-sm font-black uppercase tracking-[0.2em] shadow-xl shadow-primary/30 group active:scale-[0.98] transition-all"
+                            >
+                                {submitting ? (
+                                    <FiLoader
+                                        className="animate-spin"
+                                        size={24}
+                                    />
+                                ) : (
+                                    <>
+                                        COMMENCE TRANSMISSION
+                                        <FiSend size={24} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                                    </>
+                                )}
+                            </button>
+                        </form>
                     </div>
-                )}
-            </div>
-            );
+                </div>
+            )}
+        </div>
+    );
 };
 
-            const FiX = ({size}) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>;
+const FiX = ({ size }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+    </svg>
+);
 
-            export default Support;
+export default Support;
