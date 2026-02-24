@@ -10,7 +10,7 @@ const lessonSchema = new mongoose.Schema(
     notes: String,
     hasQuiz: Boolean,
   },
-  { id: false },
+  { _id: false },
 );
 
 const moduleSchema = new mongoose.Schema({
