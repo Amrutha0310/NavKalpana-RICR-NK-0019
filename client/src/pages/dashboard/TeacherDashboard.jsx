@@ -48,6 +48,7 @@ const TeacherDashboard = () => {
   }, []);
 
   const user = JSON.parse(sessionStorage.getItem('LearningUser'));
+  const role = user?.role || 'student';
 
   if (loading) {
     return (
@@ -71,12 +72,14 @@ const TeacherDashboard = () => {
           </p>
         </div>
 
-        <button
-          onClick={() => navigate('/courses')}
-          className="btn btn-primary rounded-2xl flex items-center gap-2 shadow-lg"
-        >
-          <FaPlusCircle className="text-lg" /> Create New Course
-        </button>
+        {role === 'teacher' && (
+          <button
+            onClick={() => navigate('/courses')}
+            className="btn btn-primary rounded-2xl flex items-center gap-2 shadow-lg"
+          >
+            <FaPlusCircle className="text-lg" /> Create New Course
+          </button>
+        )}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

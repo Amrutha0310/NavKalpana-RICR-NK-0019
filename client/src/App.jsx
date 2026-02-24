@@ -20,21 +20,22 @@ import { Toaster } from "react-hot-toast";
 import CourseDetail from "./pages/CourseDetail";
 
 const App = () => {
-   const role = localStorage.getItem("role") || "student";
+  const user = JSON.parse(sessionStorage.getItem("LearningUser"));
+  const role = user?.role || "student";
   return (
     <BrowserRouter>
       <Navbar />
       <Toaster />
 
       <Routes>
-         <Route path="/" element={<Register />} /> 
+        <Route path="/" element={<Register />} />
         {/* <Route path="/home" element={<Home />} /> */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         {/* <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} /> */}
-       
-{role === "student" && (
+
+        {role === "student" && (
           <Route element={<SidebarLayout />}>
             <Route path="/student-dashboard" element={<StudentsDashboard />} />
             <Route path="/courses" element={<Courses />} />
@@ -47,7 +48,7 @@ const App = () => {
           </Route>
         )}
 
-        
+
         {role === "teacher" && (
           <Route element={<SidebarLayout />}>
             <Route path="/teacher-dashboard" element={<TeacherDashboard />} />
@@ -69,7 +70,7 @@ const App = () => {
         />
       </Routes>
 
-      
+
     </BrowserRouter>
   );
 };

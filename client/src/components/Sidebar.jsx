@@ -13,7 +13,8 @@ import {
 
 const Sidebar = () => {
   const navigate = useNavigate();
-  const role = localStorage.getItem("role") || "student";
+  const user = JSON.parse(sessionStorage.getItem("LearningUser"));
+  const role = user?.role || "student";
 
   const handleLogout = () => {
     localStorage.clear();
