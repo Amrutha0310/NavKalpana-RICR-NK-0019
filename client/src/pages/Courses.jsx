@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import api from '../config/Api';
+import { useAuth } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
 import {
     FiPlay,
@@ -27,8 +28,7 @@ const Courses = () => {
         ]
     });
 
-    const user = JSON.parse(sessionStorage.getItem("LearningUser"));
-    const role = user?.role || 'student';
+    const { user, role } = useAuth();
 
     const fetchCourses = async () => {
         setLoading(true);

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import api from '../config/Api';
+import { useAuth } from '../context/AuthContext';
 import {
     FiLifeBuoy,
     FiSend,
@@ -24,8 +25,7 @@ const Support = () => {
         type: 'Doubt'
     });
 
-    const user = JSON.parse(sessionStorage.getItem("LearningUser"));
-    const role = user?.role || 'student';
+    const { user, role } = useAuth();
 
     const fetchData = async () => {
         try {

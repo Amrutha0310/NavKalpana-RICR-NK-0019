@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import api from "../config/Api";
+import { useAuth } from "../context/AuthContext";
 import {
   FaCalendarAlt,
   FaCheckCircle,
@@ -14,8 +15,7 @@ const Assignments = () => {
   const [submissions, setSubmissions] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const user = JSON.parse(sessionStorage.getItem("LearningUser"));
-  const role = user?.role || "student";
+  const { user, role } = useAuth();
 
 
   const fetchAssignments = async () => {

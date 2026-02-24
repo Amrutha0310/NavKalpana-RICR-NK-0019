@@ -10,11 +10,11 @@ import {
   FaSignOutAlt,
   FaGraduationCap,
 } from "react-icons/fa";
+import { useAuth } from "../context/AuthContext";
 
 const Sidebar = () => {
   const navigate = useNavigate();
-  const user = JSON.parse(sessionStorage.getItem("LearningUser"));
-  const role = user?.role || "student";
+  const { user, role } = useAuth();
 
   const handleLogout = () => {
     localStorage.clear();

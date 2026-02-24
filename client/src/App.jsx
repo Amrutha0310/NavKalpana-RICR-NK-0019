@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "./components/Navbar";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useAuth } from "./context/AuthContext";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import SidebarLayout from "./components/layout/SidebarLayout";
@@ -20,8 +21,7 @@ import { Toaster } from "react-hot-toast";
 import CourseDetail from "./pages/CourseDetail";
 
 const App = () => {
-  const user = JSON.parse(sessionStorage.getItem("LearningUser"));
-  const role = user?.role || "student";
+  const { user, role } = useAuth();
   return (
     <BrowserRouter>
       <Navbar />
@@ -56,6 +56,7 @@ const App = () => {
             <Route path="/assignments" element={<Assignments />} />
             <Route path="/quizzes" element={<Quizzes />} />
             <Route path="/support" element={<Support />} />
+            <Route path="/CourseDetail" element={<CourseDetail />} />
           </Route>
         )}
 

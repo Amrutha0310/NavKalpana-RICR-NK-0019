@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 import api from "../../config/Api"
 import {
   FaUsers,
@@ -47,8 +48,7 @@ const TeacherDashboard = () => {
     fetchStats();
   }, []);
 
-  const user = JSON.parse(sessionStorage.getItem('LearningUser'));
-  const role = user?.role || 'student';
+  const { user, role } = useAuth();
 
   if (loading) {
     return (

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import api from "../config/Api";
+import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 import {
   FiCpu,
@@ -36,8 +37,7 @@ const Quizzes = () => {
     ],
   });
 
-  const user = JSON.parse(sessionStorage.getItem("LearningUser"));
-  const role = user?.role;
+  const { user, role } = useAuth();
 
   const fetchData = async () => {
     try {

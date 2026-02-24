@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import api from "../../config/Api";
 import Sidebar from "../../components/Sidebar";
+import { useAuth } from "../../context/AuthContext";
 import {
   FaTrophy,
   FaFire,
@@ -55,7 +56,7 @@ const StudentsDashboard = () => {
     return "Good Evening";
   };
 
-  const user = JSON.parse(sessionStorage.getItem("LearningUser"));
+  const { user } = useAuth();
 
   if (loading) {
     return (
