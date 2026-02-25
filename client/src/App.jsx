@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "./components/Navbar";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useAuth } from "./context/AuthContext";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import SidebarLayout from "./components/layout/SidebarLayout";
@@ -20,26 +21,26 @@ import { Toaster } from "react-hot-toast";
 import CourseDetail from "./pages/CourseDetail";
 
 const App = () => {
-   const role = localStorage.getItem("role") || "student";
+  const { user, role } = useAuth();
   return (
     <BrowserRouter>
       <Navbar />
       <Toaster />
 
       <Routes>
-         <Route path="/" element={<Register />} /> 
+        <Route path="/" element={<Register />} />
         {/* <Route path="/home" element={<Home />} /> */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         {/* <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} /> */}
-       
-{role === "student" && (
+
+        {role === "student" && (
           <Route element={<SidebarLayout />}>
             <Route path="/student-dashboard" element={<StudentsDashboard />} />
             <Route path="/courses" element={<Courses />} />
             <Route path="/support" element={<Support />} />
-            <Route path="/quiz" element={<Quiz />} />
+            <Route path="/quiz/:id" element={<Quiz />} />
             <Route path="/quizzes" element={<Quizzes />} />
             <Route path="/assignments" element={<Assignments />} />
             <Route path="/attendance" element={<Attendance />} />
@@ -47,7 +48,7 @@ const App = () => {
           </Route>
         )}
 
-        
+
         {role === "teacher" && (
           <Route element={<SidebarLayout />}>
             <Route path="/teacher-dashboard" element={<TeacherDashboard />} />
@@ -55,6 +56,8 @@ const App = () => {
             <Route path="/assignments" element={<Assignments />} />
             <Route path="/quizzes" element={<Quizzes />} />
             <Route path="/support" element={<Support />} />
+            <Route path="/CourseDetail" element={<CourseDetail />} />
+            <Route path="/quiz/:id" element={<Quiz />} />
           </Route>
         )}
 
@@ -69,7 +72,7 @@ const App = () => {
         />
       </Routes>
 
-      
+
     </BrowserRouter>
   );
 };

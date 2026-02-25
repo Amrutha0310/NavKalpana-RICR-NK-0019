@@ -60,16 +60,16 @@ const Navbar = () => {
 
   return (
     <nav className="bg-base-100 shadow-md sticky top-0 z-50 border-b border-base-200">
-      <div className="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 flex justify-between items-center">
         {/* LEFT */}
         <div
           className="flex items-center gap-2 cursor-pointer"
           onClick={() => navigate("/")}
         >
-          <FaGraduationCap className="text-primary text-3xl" />
+          <FaGraduationCap className="text-primary text-2xl" />
           <div className="leading-tight">
-            <h1 className="text-xl font-bold tracking-tight">learnify</h1>
-            <p className="text-[10px] uppercase font-medium text-base-content/50 tracking-widest">
+            <h1 className="text-lg font-bold tracking-tight">learnify</h1>
+            <p className="text-[9px] uppercase font-medium text-base-content/50 tracking-widest">
               Portal
             </p>
           </div>
@@ -78,7 +78,7 @@ const Navbar = () => {
         {/* RIGHT */}
         <div className="flex items-center gap-4">
           <select
-            className="select select-bordered select-sm hidden sm:block font-medium text-xs"
+            className="select select-bordered select-sm hidden sm:block font-medium text-[10px]"
             value={theme}
             onChange={handleThemeChange}
           >
@@ -88,7 +88,7 @@ const Navbar = () => {
 
           {user ? (
             <div className="flex items-center gap-4">
-              
+
               <div
                 onClick={() =>
                   navigate(
@@ -99,15 +99,15 @@ const Navbar = () => {
                 }
                 className="hidden lg:flex flex-col items-end leading-none cursor-pointer hover:opacity-80 transition"
               >
-                <span className="text-[14px] font-bold">{user.fullName}</span>
-                <span className="text-[10px] uppercase font-black text-primary opacity-70">
+                <span className="text-[13px] font-bold">{user.fullName}</span>
+                <span className="text-[9px] uppercase font-black text-primary opacity-70">
                   {user.role}
                 </span>
               </div>
 
               <button
                 onClick={handleLogout}
-                className="btn btn-error btn-sm btn-outline px-5 rounded-full font-black text-xs"
+                className="btn btn-error btn-sm btn-outline px-4 rounded-full font-bold text-[10px]"
               >
                 <FaSignOutAlt /> LOGOUT
               </button>
@@ -116,13 +116,13 @@ const Navbar = () => {
             <div className="flex items-center gap-2">
               <button
                 onClick={() => navigate("/login")}
-                className="btn btn-primary btn-sm px-8 rounded-full font-bold text-xs shadow-lg shadow-primary/20"
+                className="btn btn-primary btn-sm px-6 rounded-full font-bold text-[10px] shadow-lg shadow-primary/20"
               >
                 LOGIN
               </button>
               <button
                 onClick={() => navigate("/register")}
-                className="btn btn-primary btn-sm px-8 rounded-full font-bold text-xs shadow-lg shadow-primary/20"
+                className="btn btn-primary btn-sm px-6 rounded-full font-bold text-[10px] shadow-lg shadow-primary/20"
               >
                 REGISTER
               </button>

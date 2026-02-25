@@ -32,11 +32,25 @@ export const getQuizzes = async (req, res, next) => {
 
 //  Create a new quiz
 export const createQuiz = async (req, res, next) => {
-  try {
-    if (req.user.role !== "teacher") {
-      return res
-        .status(403)
-        .json({ message: "Only teachers can create quizzes" });
+    try {
+        const { courseId, title, duration, questions } = req.body;
+        console.log("Creating Quiz with data:", { courseId, title, duration, questionsCount: questions?.length });
+
+        if (!title || title.trim() === "") {
+            return res.status(400).json({ message: "Quiz title is required" });
+        }
+
+        const quiz = await Quiz.create({
+            course: courseId,
+            title,
+            duration: Number(duration) || 15,
+            questions,
+            createdBy: req.user?._id
+        });
+        res.status(201).json(quiz);
+    } catch (error) {
+        console.error("CREATE QUIZ ERROR:", error);
+        next(error);
     }
     const { courseId, title, duration, questions } = req.body;
      if (!courseId || !title || !duration || !questions?.length) {
@@ -50,10 +64,8 @@ export const createQuiz = async (req, res, next) => {
       createdBy: req.user._id,
     });
     res.status(201).json(quiz);
-  } catch (error) {
-    next(error);
   }
-};
+
 
 // Get quiz details (including questions)
 export const getQuizById = async (req, res, next) => {
@@ -127,3 +139,16 @@ export const submitQuizAttempt = async (req, res, next) => {
     next(error);
   }
 };
+
+//  Delete a quiz
+export const deleteQuiz = async (req, res, next) => {
+    try {
+        const quiz = await Quiz.findByIdAndDelete(req.params.id);
+        if (!quiz) return res.status(404).json({ message: 'Quiz not found' });
+        res.json({ message: 'Quiz deleted successfully' });
+    } catch (error) {
+        next(error);
+    }
+};
+
+

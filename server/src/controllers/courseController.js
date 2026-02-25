@@ -9,8 +9,8 @@ import User from '../models/UserModel.js';
 //   GET /api/courses
 export const getCourses = async (req, res, next) => {
     try {
-        // If student wants to explore available courses
-        if (req.user.role === 'student' && req.query.type === 'all') {
+        // If user wants to explore all available courses
+        if (req.query.type === 'all') {
             const allCourses = await Course.find({}).populate('instructor', 'fullName');
             return res.json(allCourses);
         }
@@ -178,3 +178,42 @@ export const markCourseComplete = async (req, res, next) => {
 };
 
 
+//  Update a course
+//  PUT /api/courses/:id
+export const updateCourse = async (req, res, next) => {
+    try {
+        const { name, description, thumbnail, modules } = req.body;
+
+        // Calculate total lessons
+        let totalLessons = 0;
+        if (modules) {
+            modules.forEach(module => {
+                totalLessons += module.lessons.length;
+            });
+        }
+
+        const course = await Course.findByIdAndUpdate(
+            req.params.id,
+            { name, description, thumbnail, modules, totalLessons },
+            { new: true }
+        );
+
+        if (!course) return res.status(404).json({ message: 'Course not found' });
+        res.json(course);
+    } catch (error) {
+        next(error);
+    }
+};
+
+// Handle file upload
+export const uploadFile = async (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({ message: 'No file uploaded' });
+        }
+        const filePath = `/uploads/${req.file.filename}`;
+        res.json({ url: filePath });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
